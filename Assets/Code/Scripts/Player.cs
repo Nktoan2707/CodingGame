@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
+
+
     public event EventHandler<OnInteractionEventArgs> OnInteraction;
     public class OnInteractionEventArgs : EventArgs
     {
@@ -54,7 +56,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            ExecuteCommands();
+            ExecuteCommand();
         }
     }
 
@@ -65,7 +67,7 @@ public class Player : MonoBehaviour
         return;
     }
 
-    private void ExecuteCommands()
+    private void ExecuteCommand()
     {
         movingDirection = Vector2.zero;
         if (Input.GetKeyDown(KeyCode.A))
