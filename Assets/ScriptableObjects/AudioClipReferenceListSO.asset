@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08d87d0be59332b4ea4938347985ad56, type: 3}
+  m_Name: AudioClipReferenceListSO
+  m_EditorClassIdentifier: 
+  footstep:
+  - {fileID: 8300000, guid: 1388a7526434da94ca6bf7a0c57f124c, type: 3}
+  - {fileID: 8300000, guid: 89fc6a284ffd15947b28b2283dc807b4, type: 3}
+  - {fileID: 8300000, guid: 5778e7686f2aded47a9f43c192cc9800, type: 3}
+  - {fileID: 8300000, guid: 46238bf0777881445972edd7fd454072, type: 3}
+  gemPickup:
+  - {fileID: 8300000, guid: a91f4f7b6e6943547b95ea3e7f824588, type: 3}
