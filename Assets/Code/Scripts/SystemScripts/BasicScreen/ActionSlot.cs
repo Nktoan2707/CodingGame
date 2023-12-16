@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitBasicScreen : MonoBehaviour
+public class ActionSlot : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
