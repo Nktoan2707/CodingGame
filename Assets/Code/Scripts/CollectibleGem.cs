@@ -9,8 +9,6 @@ public class CollectibleGem : MonoBehaviour, IInteractable
     public void Interact()
     {
         GemCountingManager.Instance.CurrentNumberOfGems += 1;
-        Destroy(gameObject);
-        
     }
 
     // Start is called before the first frame update
@@ -31,5 +29,10 @@ public class CollectibleGem : MonoBehaviour, IInteractable
         {
             player.AddInteractableObject(this);
         }
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }

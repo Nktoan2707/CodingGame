@@ -8,6 +8,14 @@ using UnityEngine.Purchasing;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+
+    public event EventHandler<OnInteractionEventArgs> OnInteraction;
+    public class OnInteractionEventArgs : EventArgs
+    {
+        public IInteractable interactedObject;
+    }
+
     [SerializeField] private float speed;
 
     private const float movingUnit = 1f;
@@ -19,7 +27,9 @@ public class Player : MonoBehaviour
     private List<IInteractable> interactableObjectList;
 
     private void Awake()
-    {
+    {   
+        Instance = this;
+
         transform.position = Vector3.zero;
         movingDirection = Vector3.zero;
         movingDestination = transform.position;
@@ -88,6 +98,17 @@ public class Player : MonoBehaviour
     private void Interact()
     {
         interactableObjectList[0].Interact();
+        OnInteraction?.Invoke(this, new OnInteractionEventArgs
+        {
+            interactedObject = interactableObjectList[0]
+        });
+
+        // if interacted object is a gem
+        CollectibleGem collectibleGem = interactableObjectList[0] as CollectibleGem;
+        if (collectibleGem != null)
+        {
+            collectibleGem.DestroySelf();
+        }
         interactableObjectList.RemoveAt(0);
     }
 
