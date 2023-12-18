@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler {
-    [SerializeField] Canvas canvas;
     CanvasGroup canvasGroup;
     private RectTransform rectTransform;
     public UnityEngine.UI.Image image;
