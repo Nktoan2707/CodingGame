@@ -11,45 +11,19 @@ public class InitActionListView : MonoBehaviour
     [SerializeField] GameObject actionDown;
     [SerializeField] GameObject actionRight;
     [SerializeField] GameObject actionLeft;
+    [SerializeField] GameObject actionSlot;
     // Start is called before the first frame update
     void Start() {
         actionLayout = gameObject.GetComponent<HorizontalLayoutGroup>();
         foreach (ActionModel action  in ActionSceneManager.initActionList) {
-            switch (action.actionName.ToUpper()) {
-                case "UP":
-                    Instantiate(
-                        actionUp,
-                        new Vector3(0,0,0),
-                        Quaternion.identity,
-                        transform
-                    );
-                    break;
-                case "DOWN":
-                    Instantiate(
-                        actionDown,
-                        new Vector3(0,0,0),
-                        Quaternion.identity,
-                        transform
-                    );
-                    break;
-                case "LEFT":
-                    Instantiate(
-                        actionLeft,
-                        new Vector3(0,0,0),
-                        Quaternion.identity,
-                        transform
-                    );
-                    break;
-                case "RIGHT":
-                    Instantiate(
-                        actionRight,
-                        new Vector3(0,0,0),
-                        Quaternion.identity,
-                        transform
-                    );
-                    break;
-                default: break;
-            }
+            
+            GameObject actionSlotObj = Instantiate(
+                actionSlot,
+                new Vector3(0,0,0),
+                Quaternion.identity,
+                transform
+            );
+            
         }
     }
 
