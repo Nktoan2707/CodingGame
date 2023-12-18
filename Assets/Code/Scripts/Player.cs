@@ -10,13 +10,16 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
+    public bool IsEnabled { get; private set; }
+
     public event EventHandler<OnInteractionEventArgs> OnInteraction;
     public class OnInteractionEventArgs : EventArgs
     {
         public IInteractable interactedObject;
     }
 
-    [SerializeField] private float speed;
+    public float Speed { get; private set; }
+    public float SpeedMultiplier { get; set; }
 
     private const float movingUnit = 1f;
     private Vector2 movingDirection;
@@ -27,8 +30,12 @@ public class Player : MonoBehaviour
     private List<IInteractable> interactableObjectList;
 
     private void Awake()
-    {   
+    {
         Instance = this;
+        IsEnabled = true;
+
+        Speed = 3f;
+        SpeedMultiplier = 1f;
 
         transform.position = Vector3.zero;
         movingDirection = Vector3.zero;
@@ -45,7 +52,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        movingDistance = speed * Time.deltaTime;
+        movingDistance = Speed * SpeedMultiplier * Time.deltaTime;
         IsMoving = !Mathf.Approximately(Vector3.Distance(transform.position, movingDestination), 0);
 
         if (IsMoving)
@@ -97,6 +104,11 @@ public class Player : MonoBehaviour
 
     private void Interact()
     {
+        if (interactableObjectList.Count <= 0)
+        {
+            return;
+        }
+
         interactableObjectList[0].Interact();
         OnInteraction?.Invoke(this, new OnInteractionEventArgs
         {
@@ -122,9 +134,14 @@ public class Player : MonoBehaviour
         return movingDirection;
     }
 
-    private void SetMovingDestination(Vector3 movingDirection)
+    private void SetMovingDestination(Vector3 newMovingDirection)
     {
-        this.movingDestination = movingDirection;
+        if(Physics2D.OverlapCircle(newMovingDirection, 0.1f))
+        {
+            return;
+        }
+
+        this.movingDestination = newMovingDirection;
     }
 }
 
