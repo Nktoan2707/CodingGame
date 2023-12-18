@@ -4,36 +4,31 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler {
+public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler {
     [SerializeField] Canvas canvas;
     CanvasGroup canvasGroup;
     private RectTransform rectTransform;
-    private RectTransform oldTransform;
+
+    Transform parentAfterDrag;
+    
     public void OnBeginDrag(PointerEventData eventData) { 
        Debug.Log("OnBeginDrag");
        canvasGroup.alpha = 0.6f;
        canvasGroup.blocksRaycasts = false;
+       parentAfterDrag = transform.parent;
+       transform.SetParent(transform.root);
+       transform.SetAsLastSibling();
     }
 
     public void OnDrag(PointerEventData eventData) {
-        Debug.Log("OnDrag");
-        rectTransform.anchoredPosition += eventData.delta;
-    }
-
-    public void OnDrop(PointerEventData eventData) {
-        Debug.Log("OnDrop");
-        rectTransform.anchoredPosition = oldTransform.anchoredPosition;
+        rectTransform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData) { 
        Debug.Log("OnEndDrag");
        canvasGroup.alpha = 1f;
        canvasGroup.blocksRaycasts = true;
-    }
-
-    public void OnPointerDown(PointerEventData eventData) {
-        Debug.Log("OnPointerDown");
-        oldTransform = rectTransform;
+       transform.SetParent(parentAfterDrag);
     }
 
     void Awake() {
