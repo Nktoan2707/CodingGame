@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     private List<IInteractable> interactableObjectList;
 
     private void Awake()
-    {   
+    {
         Instance = this;
 
         transform.position = Vector3.zero;
@@ -97,6 +97,11 @@ public class Player : MonoBehaviour
 
     private void Interact()
     {
+        if (interactableObjectList.Count <= 0)
+        {
+            return;
+        }
+
         interactableObjectList[0].Interact();
         OnInteraction?.Invoke(this, new OnInteractionEventArgs
         {
@@ -122,9 +127,14 @@ public class Player : MonoBehaviour
         return movingDirection;
     }
 
-    private void SetMovingDestination(Vector3 movingDirection)
+    private void SetMovingDestination(Vector3 newMovingDirection)
     {
-        this.movingDestination = movingDirection;
+        if(Physics2D.OverlapCircle(newMovingDirection, 0.1f))
+        {
+            return;
+        }
+
+        this.movingDestination = newMovingDirection;
     }
 }
 
