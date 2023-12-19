@@ -121,12 +121,16 @@ public class Player : MonoBehaviour
         {
             collectibleGem.DestroySelf();
         }
-        interactableObjectList.RemoveAt(0);
     }
 
     public void AddInteractableObject(IInteractable interactableObject)
     {
         interactableObjectList.Add(interactableObject);
+    }
+
+    public void RemoveInteractableObject(IInteractable interactableObject)
+    {
+        interactableObjectList.Remove(interactableObject);
     }
 
     public Vector2 GetMovingDirection()
