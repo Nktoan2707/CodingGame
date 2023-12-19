@@ -121,12 +121,16 @@ public class Player : MonoBehaviour
         {
             collectibleGem.DestroySelf();
         }
-        interactableObjectList.RemoveAt(0);
     }
 
     public void AddInteractableObject(IInteractable interactableObject)
     {
         interactableObjectList.Add(interactableObject);
+    }
+
+    public void RemoveInteractableObject(IInteractable interactableObject)
+    {
+        interactableObjectList.Remove(interactableObject);
     }
 
     public Vector2 GetMovingDirection()
@@ -142,6 +146,14 @@ public class Player : MonoBehaviour
         }
 
         this.movingDestination = newMovingDirection;
+    }
+
+    public void catchEventQueue(List<ActionModel> actionList) {
+        string logString = "";
+        foreach(ActionModel actionModel in actionList) {
+            logString += $" > {actionModel.actionName}";
+        }
+        Debug.Log("Action Queue: " + logString);
     }
 }
 

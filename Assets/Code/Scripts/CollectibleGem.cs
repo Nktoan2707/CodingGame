@@ -23,7 +23,7 @@ public class CollectibleGem : MonoBehaviour, IInteractable
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    public void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.TryGetComponent<Player>(out Player player))
         {
@@ -31,8 +31,20 @@ public class CollectibleGem : MonoBehaviour, IInteractable
         }
     }
 
+    public void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.TryGetComponent<Player>(out Player player))
+        {
+            player.RemoveInteractableObject(this);
+        }
+    }
+
+
+
     public void DestroySelf()
     {
         Destroy(gameObject);
     }
+
+    
 }
