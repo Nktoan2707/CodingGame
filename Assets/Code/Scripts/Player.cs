@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public bool IsMoving { get; set; }
 
     private List<IInteractable> interactableObjectList;
+    private List<ActionModel> actionList;
 
     private void Awake()
     {
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour
         movingDestination = transform.position;
         IsMoving = false;
         interactableObjectList = new List<IInteractable>();
+        actionList = new List<ActionModel>();
     }
 
     private void Start()
@@ -61,7 +63,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            ExecuteCommands();
+            ExecuteAction();
         }
     }
 
@@ -72,34 +74,61 @@ public class Player : MonoBehaviour
         return;
     }
 
-    private void ExecuteCommands()
+    private void ExecuteAction()
     {
         movingDirection = Vector2.zero;
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            movingDirection.x = -movingUnit;
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    movingDirection.x = -movingUnit;
 
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
+        //}
+        //else if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    movingDirection.x = movingUnit;
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    movingDirection.y = movingUnit;
+        //}
+        //else if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    movingDirection.y = -movingUnit;
+        //}
+        //else if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    Interact();
+        //}
+
+        if (actionList.Count <= 0)
         {
-            movingDirection.x = movingUnit;
+            return;
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        ActionModel action = actionList[0];
+        switch (action.actionName.ToUpper())
         {
-            movingDirection.y = movingUnit;
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            movingDirection.y = -movingUnit;
-        }
-        else if (Input.GetKeyDown(KeyCode.F))
-        {
-            Interact();
+            case "UP":
+                movingDirection.y = movingUnit;
+                break;
+            case "DOWN":
+                movingDirection.y = -movingUnit;
+                break;
+            case "LEFT":
+                movingDirection.x = -movingUnit;
+                break;
+            case "RIGHT":
+                movingDirection.x = movingUnit;
+                break;
+            case "PICKUP":
+                Interact();
+                break;
         }
 
         movingDirection.Normalize();
         SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
+
+        actionList.RemoveAt(0);
     }
 
     private void Interact()
@@ -140,7 +169,7 @@ public class Player : MonoBehaviour
 
     private void SetMovingDestination(Vector3 newMovingDirection)
     {
-        if(Physics2D.OverlapCircle(newMovingDirection, 0.1f))
+        if (Physics2D.OverlapCircle(newMovingDirection, 0.1f))
         {
             return;
         }
@@ -148,12 +177,16 @@ public class Player : MonoBehaviour
         this.movingDestination = newMovingDirection;
     }
 
-    public void catchEventQueue(List<ActionModel> actionList) {
+    public void catchEventQueue(List<ActionModel> actionList)
+    {
         string logString = "";
-        foreach(ActionModel actionModel in actionList) {
+        foreach (ActionModel actionModel in actionList)
+        {
             logString += $" > {actionModel.actionName}";
         }
         Debug.Log("Action Queue: " + logString);
+
+        this.actionList = actionList;
     }
 }
 

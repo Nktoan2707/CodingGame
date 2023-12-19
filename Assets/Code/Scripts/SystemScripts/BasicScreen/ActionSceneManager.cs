@@ -10,9 +10,10 @@ public class ActionSceneManager : MonoBehaviour {
     [SerializeField] GameObject actionQueue;
 
     private void Start() {
-        initActionList.Add(new ActionModel("UP"));
-        initActionList.Add(new ActionModel("DOWN"));
-        initActionList.Add(new ActionModel("LEFT"));
+        initActionList.Add(new ActionModel("RIGHT"));
+        initActionList.Add(new ActionModel("RIGHT"));
+        initActionList.Add(new ActionModel("RIGHT"));
+        initActionList.Add(new ActionModel("RIGHT"));
         initActionList.Add(new ActionModel("RIGHT"));
         initActionList.Add(new ActionModel("PICKUP"));
         actionList.GetComponent<ActionListManager>().updateActionList();
