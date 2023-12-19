@@ -147,5 +147,13 @@ public class Player : MonoBehaviour
 
         this.movingDestination = newMovingDirection;
     }
+
+    public void catchEventQueue(List<ActionModel> actionList) {
+        string logString = "";
+        foreach(ActionModel actionModel in actionList) {
+            logString += $" > {actionModel.actionName}";
+        }
+        Debug.Log("Action Queue: " + logString);
+    }
 }
 

@@ -19,11 +19,11 @@ public class ActionSceneManager : MonoBehaviour {
         actionQueue.GetComponent<ActionQueueManager>().updateActionQueue();
     }
 
-    public void PlayScene(string sceneName) {
+    public static void PlayScene(string sceneName) {
         SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
     }
 
-    public void UnloadScene(string sceneName) {
+    public static void UnloadScene(string sceneName) {
         SceneManager.UnloadSceneAsync(sceneName);
     }
 }
