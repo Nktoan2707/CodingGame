@@ -112,34 +112,29 @@ public class Player : MonoBehaviour
 
 
 
-        //if (actionList.Count <= 0)
-        //{
-        //    return;
-        //}
+        if (actionList.Count <= 0)
+        {
+            return;
+        }
 
-        //ActionModel action = actionList[0];
-        //switch (action.actionName.ToUpper())
-        //{
-        //    case "UP":
-        //        movingDirection.y = movingUnit;
-        //        break;
-        //    case "DOWN":
-        //        movingDirection.y = -movingUnit;
-        //        break;
-        //    case "LEFT":
-        //        movingDirection.x = -movingUnit;
-        //        break;
-        //    case "RIGHT":
-        //        movingDirection.x = movingUnit;
-        //        break;
-        //    case "PICKUP":
-        //        Interact();
-        //        break;
-        //}
-
-       
-
-        //actionList.RemoveAt(0);
+        ActionModel action = actionList[0];
+        switch (action.actionName)
+        {
+            case ActionName.TurnLeft:
+                movingDirection = Rotate(movingDirection, ROTATE_LEFT_DEGREE);
+                break;
+            case ActionName.TurnRight:
+                movingDirection = Rotate(movingDirection, ROTATE_RIGHT_DEGREE);
+                break;
+            case ActionName.MoveForward:
+                movingDirection.Normalize();
+                SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
+                break;
+            case ActionName.PickUp:
+                Interact();
+                break;
+        }
+        actionList.RemoveAt(0);
     }
 
     private void Interact()

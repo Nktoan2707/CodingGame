@@ -773,13 +773,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionSlot: {fileID: 1765852362651989711, guid: 759a86bf192d748168d6b2df0e251aaa,
     type: 3}
-  actionUp: {fileID: 8536927200771931093, guid: 4dfb09fe8875b4c9798e7d3b550ca1a7,
+  actionTurnLeft: {fileID: 8536927200771931093, guid: 4dfb09fe8875b4c9798e7d3b550ca1a7,
     type: 3}
-  actionDown: {fileID: 8910287838758370693, guid: d6c91467afc004e50b5bc21eed13aa9b,
+  actionTurnRight: {fileID: 8910287838758370693, guid: d6c91467afc004e50b5bc21eed13aa9b,
     type: 3}
-  actionLeft: {fileID: 8272841839388870919, guid: e2d0ba2b2aed04b949f94649a44ef8f2,
-    type: 3}
-  actionRight: {fileID: 8745777104016838750, guid: 7a0fc1a8d7a684ac79793524ee1fcf72,
+  actionMoveForward: {fileID: 8272841839388870919, guid: e2d0ba2b2aed04b949f94649a44ef8f2,
     type: 3}
   actionPickUp: {fileID: 8536927200771931093, guid: e69fed96e327a443f94d75a97d1e645d,
     type: 3}
