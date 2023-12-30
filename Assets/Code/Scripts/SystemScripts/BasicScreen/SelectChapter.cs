@@ -17,8 +17,12 @@ public class SelectChapter : MonoBehaviour
         
     }
 
-    public void LoadChapter()
+    public void LoadChapter(int level)
     {
+        ActionSceneManager.initActionList.Add(new ActionModel(ActionName.TurnLeft));
+        ActionSceneManager.initActionList.Add(new ActionModel(ActionName.TurnRight));
+        ActionSceneManager.initActionList.Add(new ActionModel(ActionName.MoveForward));
+        ActionSceneManager.initActionList.Add(new ActionModel(ActionName.PickUp));
         SceneManager.LoadSceneAsync("Action_Screen");
     }
 }
