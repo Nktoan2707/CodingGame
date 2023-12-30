@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public float SpeedMultiplier { get; set; }
 
     private const float MOVING_UNIT = 1f;
+    private const float ROTATE_LEFT_DEGREE = 90f;
+    private const float ROTATE_RIGHT_DEGREE = -90f;
     private Vector2 movingDirection;
     private float movingDistance;
     private Vector3 movingDestination;
@@ -39,7 +41,7 @@ public class Player : MonoBehaviour
         SpeedMultiplier = 1f;
 
         transform.position = Vector3.zero;
-        movingDirection = new Vector2(MOVING_UNIT, 0);
+        movingDirection = new Vector2(1, 0);
         movingDestination = transform.position;
         IsMoving = false;
         interactableObjectList = new List<IInteractable>();
@@ -74,26 +76,34 @@ public class Player : MonoBehaviour
         return;
     }
 
+    private Vector2 Rotate(Vector2 v, float degrees)
+    {
+        float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
+        float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
+
+        float tx = v.x;
+        float ty = v.y;
+        v.x = (cos * tx) - (sin * ty);
+        v.y = (sin * tx) + (cos * ty);
+        return v;
+    }
+
     private void ExecuteAction()
     {
-        movingDirection = Vector2.zero;
         if (Input.GetKeyDown(KeyCode.A))
         {
-            movingDirection.x = -MOVING_UNIT;
+            movingDirection = Rotate(movingDirection, ROTATE_LEFT_DEGREE);
 
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            movingDirection.x = MOVING_UNIT;
+            movingDirection = Rotate(movingDirection, ROTATE_RIGHT_DEGREE);
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            movingDirection.y = MOVING_UNIT;
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            movingDirection.y = -MOVING_UNIT;
+            movingDirection.Normalize();
+            SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
@@ -127,8 +137,7 @@ public class Player : MonoBehaviour
         //        break;
         //}
 
-        movingDirection.Normalize();
-        SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
+       
 
         //actionList.RemoveAt(0);
     }
