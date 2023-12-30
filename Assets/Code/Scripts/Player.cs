@@ -77,58 +77,60 @@ public class Player : MonoBehaviour
     private void ExecuteAction()
     {
         movingDirection = Vector2.zero;
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    movingDirection.x = -movingUnit;
-
-        //}
-        //else if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    movingDirection.x = movingUnit;
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    movingDirection.y = movingUnit;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    movingDirection.y = -movingUnit;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    Interact();
-        //}
-
-        if (actionList.Count <= 0)
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            return;
+            movingDirection.x = -movingUnit;
+
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            movingDirection.x = movingUnit;
         }
 
-        ActionModel action = actionList[0];
-        switch (action.actionName.ToUpper())
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            case "UP":
-                movingDirection.y = movingUnit;
-                break;
-            case "DOWN":
-                movingDirection.y = -movingUnit;
-                break;
-            case "LEFT":
-                movingDirection.x = -movingUnit;
-                break;
-            case "RIGHT":
-                movingDirection.x = movingUnit;
-                break;
-            case "PICKUP":
-                Interact();
-                break;
+            movingDirection.y = movingUnit;
         }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            movingDirection.y = -movingUnit;
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            Interact();
+        }
+
+
+
+        //if (actionList.Count <= 0)
+        //{
+        //    return;
+        //}
+
+        //ActionModel action = actionList[0];
+        //switch (action.actionName.ToUpper())
+        //{
+        //    case "UP":
+        //        movingDirection.y = movingUnit;
+        //        break;
+        //    case "DOWN":
+        //        movingDirection.y = -movingUnit;
+        //        break;
+        //    case "LEFT":
+        //        movingDirection.x = -movingUnit;
+        //        break;
+        //    case "RIGHT":
+        //        movingDirection.x = movingUnit;
+        //        break;
+        //    case "PICKUP":
+        //        Interact();
+        //        break;
+        //}
 
         movingDirection.Normalize();
         SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
 
-        actionList.RemoveAt(0);
+        //actionList.RemoveAt(0);
     }
 
     private void Interact()
@@ -169,7 +171,8 @@ public class Player : MonoBehaviour
 
     private void SetMovingDestination(Vector3 newMovingDirection)
     {
-        if (Physics2D.OverlapCircle(newMovingDirection, 0.1f))
+        Vector3 offset = new Vector3(0.5f, 0.5f, 0);
+        if (Physics2D.OverlapCircle(newMovingDirection + offset, 0.1f))
         {
             return;
         }
@@ -177,7 +180,7 @@ public class Player : MonoBehaviour
         this.movingDestination = newMovingDirection;
     }
 
-    public void catchEventQueue(List<ActionModel> actionList)
+    public void CatchEventQueue(List<ActionModel> actionList)
     {
         string logString = "";
         foreach (ActionModel actionModel in actionList)
