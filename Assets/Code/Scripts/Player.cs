@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     public float Speed { get; private set; }
     public float SpeedMultiplier { get; set; }
 
-    private const float movingUnit = 1f;
+    private const float MOVING_UNIT = 1f;
     private Vector2 movingDirection;
     private float movingDistance;
     private Vector3 movingDestination;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         SpeedMultiplier = 1f;
 
         transform.position = Vector3.zero;
-        movingDirection = Vector3.zero;
+        movingDirection = new Vector2(MOVING_UNIT, 0);
         movingDestination = transform.position;
         IsMoving = false;
         interactableObjectList = new List<IInteractable>();
@@ -79,21 +79,21 @@ public class Player : MonoBehaviour
         movingDirection = Vector2.zero;
         if (Input.GetKeyDown(KeyCode.A))
         {
-            movingDirection.x = -movingUnit;
+            movingDirection.x = -MOVING_UNIT;
 
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            movingDirection.x = movingUnit;
+            movingDirection.x = MOVING_UNIT;
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            movingDirection.y = movingUnit;
+            movingDirection.y = MOVING_UNIT;
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            movingDirection.y = -movingUnit;
+            movingDirection.y = -MOVING_UNIT;
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
@@ -172,7 +172,10 @@ public class Player : MonoBehaviour
     private void SetMovingDestination(Vector3 newMovingDirection)
     {
         Vector3 offset = new Vector3(0.5f, 0.5f, 0);
-        if (Physics2D.OverlapCircle(newMovingDirection + offset, 0.1f))
+        Collider2D collider2D = Physics2D.OverlapCircle(newMovingDirection + offset, 0.1f);
+
+        // if there is something, and that is not IInteractable
+        if (collider2D != null && !collider2D.gameObject.TryGetComponent<IInteractable>(out _))
         {
             return;
         }
