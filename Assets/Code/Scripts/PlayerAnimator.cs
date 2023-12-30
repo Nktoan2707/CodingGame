@@ -42,6 +42,6 @@ public class PlayerAnimator : MonoBehaviour
         }
 
 
-        animator.SetBool("IsMoving", movingDirection.magnitude > 0);
+        animator.SetBool("IsMoving", player.IsMoving);
     }
 }

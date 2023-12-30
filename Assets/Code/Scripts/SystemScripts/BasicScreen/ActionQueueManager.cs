@@ -17,24 +17,20 @@ public class ActionQueueManager : MonoBehaviour {
         foreach(Transform actionSlotGameObject in transform) {
             foreach(Transform actionGameObject in actionSlotGameObject) {
                 switch (actionGameObject.name.ToUpper()) {
-                    case "ACTIONUP(CLONE)": {
-                        result.Add(new ActionModel("UP"));
+                    case "ACTIONTURNLEFT(CLONE)": {
+                        result.Add(new ActionModel(ActionName.TurnLeft));
                         break;
                     }
-                    case "ACTIONDOWN(CLONE)": {
-                        result.Add(new ActionModel("DOWN"));
+                    case "ACTIONTURNRIGHT(CLONE)": {
+                        result.Add(new ActionModel(ActionName.TurnRight));
                         break;
                     }
-                    case "ACTIONLEFT(CLONE)": {
-                        result.Add(new ActionModel("LEFT"));
-                        break;
-                    }
-                    case "ACTIONRIGHT(CLONE)": {
-                        result.Add(new ActionModel("RIGHT")); 
+                    case "ACTIONMOVEFORWARD(CLONE)": {
+                        result.Add(new ActionModel(ActionName.MoveForward));
                         break;
                     }
                     case "ACTIONPICKUP(CLONE)": {
-                        result.Add(new ActionModel("PICKUP")); 
+                        result.Add(new ActionModel(ActionName.PickUp)); 
                         break;
                     }
 

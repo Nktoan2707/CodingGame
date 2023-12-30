@@ -6,6 +6,6 @@ public class ButtonHandler : MonoBehaviour {
     [SerializeField] GameObject actionQueueList;
     public void onRunClick() {
         List<ActionModel> actionQueue = actionQueueList.GetComponent<ActionQueueManager>().getActionList();
-        Player.Instance.catchEventQueue(actionQueue);
+        Player.Instance.CatchEventQueue(actionQueue);
     }
 }
