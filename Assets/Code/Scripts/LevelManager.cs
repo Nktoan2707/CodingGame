@@ -10,28 +10,34 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameLevelSO nextGameLevelSO;
     [SerializeField] private CollectibleObjectSO gemSO;
 
-    private int currentNumberOfGems;
-    public int CurrentNumberOfGems
+    private int _collectedGems;
+    public int CollectedGems
     {
         get
         {
-            return currentNumberOfGems;
+            return _collectedGems;
         }
         set
         {
-            this.currentNumberOfGems = value;
+            this._collectedGems = value;
+            if (value == gameLevelSO.numberOfGems)
+            {
+                
+            }
         }
     }
 
     private void Awake()
     {
         Instance = this;
-        CurrentNumberOfGems = 0;
+        CollectedGems = 0;
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        LoadLevel();
 
     }
 
@@ -44,10 +50,16 @@ public class LevelManager : MonoBehaviour
     private void LoadLevel()
     {
         Player.Instance.transform.position = gameLevelSO.initialPlayerPosition;
-        foreach (Vector3 position in gameLevelSO.gemPositionList)
+        Player.Instance.MovingDirection = gameLevelSO.initialPlayerMovingDirection;
+        Player.Instance.MovingDestination = gameLevelSO.initialPlayerMovingDirection;
+
+        foreach (Vector3 gemPosition in gameLevelSO.gemPositionList)
         {
-            
+            GameObject gemObject = Instantiate(gemSO.prefab);
+            gemObject.transform.position = gemPosition;
         }
+
+
     }
 
     private void RunLevel()
