@@ -31,6 +31,7 @@ public class ActionSceneManager : MonoBehaviour
 
     private void LoadLevelActions()
     {
+        initActionList.Clear();
         foreach (ActionName actionName in currentGameLevelSO.actionNameList)
         {
             initActionList.Add(new ActionModel(actionName));
