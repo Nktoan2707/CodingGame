@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GemCountingManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
-    public static GemCountingManager Instance { get; private set; }
+    public static LevelManager Instance { get; private set; }
 
     [SerializeField] private GameLevelSO gameLevelSO;
+    [SerializeField] private GameLevelSO nextGameLevelSO;
+    [SerializeField] private CollectibleObjectSO gemSO;
 
     private int currentNumberOfGems;
     public int CurrentNumberOfGems
@@ -18,7 +20,6 @@ public class GemCountingManager : MonoBehaviour
         set
         {
             this.currentNumberOfGems = value;
-            print($"Gem: {currentNumberOfGems}/{gameLevelSO.numberOfGems}");
         }
     }
 
@@ -28,8 +29,6 @@ public class GemCountingManager : MonoBehaviour
         CurrentNumberOfGems = 0;
     }
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +37,20 @@ public class GemCountingManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+
+    }
+
+    private void LoadLevel()
+    {
+        Player.Instance.transform.position = gameLevelSO.initialPlayerPosition;
+        foreach (Vector3 position in gameLevelSO.gemPositionList)
+        {
+            
+        }
+    }
+
+    private void RunLevel()
     {
 
     }

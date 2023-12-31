@@ -8,7 +8,7 @@ public class CollectibleGem : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        GemCountingManager.Instance.CurrentNumberOfGems += 1;
+        LevelManager.Instance.CurrentNumberOfGems += 1;
     }
 
     // Start is called before the first frame update

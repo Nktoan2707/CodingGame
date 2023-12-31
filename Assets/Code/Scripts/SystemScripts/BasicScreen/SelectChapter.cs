@@ -17,12 +17,9 @@ public class SelectChapter : MonoBehaviour
         
     }
 
-    public void LoadChapter(int level)
+    public void LoadChapter(GameLevelSO gameLevelSO)
     {
-        ActionSceneManager.initActionList.Add(new ActionModel(ActionName.TurnLeft));
-        ActionSceneManager.initActionList.Add(new ActionModel(ActionName.TurnRight));
-        ActionSceneManager.initActionList.Add(new ActionModel(ActionName.MoveForward));
-        ActionSceneManager.initActionList.Add(new ActionModel(ActionName.PickUp));
+        ActionSceneManager.currentGameLevelSO = gameLevelSO;
         SceneManager.LoadSceneAsync("Action_Screen");
     }
 }

@@ -1257,7 +1257,6 @@ GameObject:
   - component: {fileID: 974628979}
   - component: {fileID: 974628981}
   - component: {fileID: 974628980}
-  - component: {fileID: 974628982}
   m_Layer: 0
   m_Name: LevelFrame
   m_TagString: Untagged
@@ -1322,18 +1321,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974628978}
   m_CullTransparentMesh: 1
---- !u!114 &974628982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974628978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 488c010cd63ec4f3e9a10ada2f91bb23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1003548427
 GameObject:
   m_ObjectHideFlags: 0
