@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
@@ -19,15 +20,22 @@ public class Player : MonoBehaviour
     }
 
     public float Speed { get; private set; }
+    public float RotatingSpeed { get; private set; }
     public float SpeedMultiplier { get; set; }
 
     private const float MOVING_UNIT = 1f;
     private const float ROTATE_LEFT_DEGREE = 90f;
     private const float ROTATE_RIGHT_DEGREE = -90f;
+    private const float MINIMAL_SPEED_MULTIPLIER = 0.5f;
+    private const float MAXIMAL_SPEED_MULTIPLIER = 0.5f;
+
     private Vector2 movingDirection;
-    private float movingDistance;
     private Vector3 movingDestination;
+    private float movingDistance;
     public bool IsMoving { get; set; }
+    private float rotatingTimer;
+    private float rotatingTimerMax;
+    public bool IsRotating { get; set; }
 
     private List<IInteractable> interactableObjectList;
     private List<ActionModel> actionList;
@@ -38,12 +46,16 @@ public class Player : MonoBehaviour
         IsEnabled = true;
 
         Speed = 3f;
+        RotatingSpeed = 3f;
+        rotatingTimerMax = 0.5f;
+        rotatingTimer = rotatingTimerMax;
         SpeedMultiplier = 1f;
 
         transform.position = Vector3.zero;
         movingDirection = new Vector2(1, 0);
         movingDestination = transform.position;
         IsMoving = false;
+        IsRotating = false;
         interactableObjectList = new List<IInteractable>();
         actionList = new List<ActionModel>();
     }
@@ -56,12 +68,24 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (!IsEnabled)
+        {
+            return;
+        }
+
         movingDistance = Speed * SpeedMultiplier * Time.deltaTime;
         IsMoving = !Mathf.Approximately(Vector3.Distance(transform.position, movingDestination), 0);
 
+
         if (IsMoving)
         {
+
             HandleMovement();
+        }
+        else if (IsRotating)
+        {
+
+            HandleRotation();
         }
         else
         {
@@ -72,9 +96,38 @@ public class Player : MonoBehaviour
     private void HandleMovement()
     {
         transform.position = Vector3.MoveTowards(transform.position, movingDestination, movingDistance);
-        IsMoving = true;
         return;
     }
+
+    private void HandleRotation()
+    {
+        rotatingTimer -= Time.deltaTime * SpeedMultiplier;
+        if (rotatingTimer <= 0)
+        {
+            rotatingTimer = rotatingTimerMax;
+            IsRotating = false;
+        }
+        return;
+    }
+
+    public void IncreasePlaybackSpeed()
+    {
+        if (SpeedMultiplier < MAXIMAL_SPEED_MULTIPLIER)
+        {
+            SpeedMultiplier += 0.5f;
+
+        }
+    }
+
+    public void DecreasePlaybackSpeed()
+    {
+        if (SpeedMultiplier > MINIMAL_SPEED_MULTIPLIER)
+        {
+            SpeedMultiplier -= 0.5f;
+
+        }
+    }
+
 
     private Vector2 Rotate(Vector2 v, float degrees)
     {
@@ -93,11 +146,14 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             movingDirection = Rotate(movingDirection, ROTATE_LEFT_DEGREE);
+            IsRotating = true;
 
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             movingDirection = Rotate(movingDirection, ROTATE_RIGHT_DEGREE);
+            IsRotating = true;
+
         }
 
         if (Input.GetKeyDown(KeyCode.W))
@@ -122,9 +178,11 @@ public class Player : MonoBehaviour
         {
             case ActionName.TurnLeft:
                 movingDirection = Rotate(movingDirection, ROTATE_LEFT_DEGREE);
+                IsRotating = true;
                 break;
             case ActionName.TurnRight:
                 movingDirection = Rotate(movingDirection, ROTATE_RIGHT_DEGREE);
+                IsRotating = true;
                 break;
             case ActionName.MoveForward:
                 movingDirection.Normalize();

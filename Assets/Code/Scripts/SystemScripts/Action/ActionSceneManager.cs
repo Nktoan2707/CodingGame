@@ -5,12 +5,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ActionSceneManager : MonoBehaviour {
-    public static List<ActionModel> initActionList = new List<ActionModel>(); 
+    public static List<ActionModel> initActionList = new List<ActionModel>();
+    public static GameLevelSO currentGameLevelSO;
     
 
     [SerializeField] GameObject actionList;
     [SerializeField] GameObject actionQueue;
     [SerializeField] GameObject actionFunction;
+
+    private void Awake()
+    {
+        if (currentGameLevelSO == null)
+        {
+            Debug.LogError("Missing GameLevelSO!");
+        }
+    }
+
 
     private void Start() {
         actionList.GetComponent<ActionListManager>().updateActionList();
