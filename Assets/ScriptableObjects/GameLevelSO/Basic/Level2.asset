@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687f9ddf45b1c094d840a61515049700, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
-  sceneName: Scene_Basic_Level_1
+  sceneName: Scene_Basic_Level_2
   category: Basic
   level: 2
   numberOfGems: 2

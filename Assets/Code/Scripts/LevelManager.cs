@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -29,7 +30,8 @@ public class LevelManager : MonoBehaviour
     {
         if (CollectedGems == gameLevelSO.numberOfGems)
         {
-            ActionSceneManager.PlayScene(nextGameLevelSO.sceneName);
+            ActionSceneManager.currentGameLevelSO = nextGameLevelSO;
+            SceneManager.LoadScene("Action_Screen");
         }
     }
 
@@ -57,12 +59,12 @@ public class LevelManager : MonoBehaviour
     private void LoadLevel()
     {
         Player.Instance.transform.position = gameLevelSO.initialPlayerPosition;
+        Player.Instance.MovingDestination = gameLevelSO.initialPlayerPosition;
         Player.Instance.MovingDirection = gameLevelSO.initialPlayerMovingDirection;
-        Player.Instance.MovingDestination = gameLevelSO.initialPlayerMovingDirection;
 
         foreach (Vector3 gemPosition in gameLevelSO.gemPositionList)
         {
-            GameObject gemObject = Instantiate(gemSO.prefab);
+            GameObject gemObject = Instantiate(gemSO.prefab, this.transform.parent);
             gemObject.transform.position = gemPosition;
         }
 
