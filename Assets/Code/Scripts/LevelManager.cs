@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,12 +21,18 @@ public class LevelManager : MonoBehaviour
         set
         {
             this._collectedGems = value;
-            if (value == gameLevelSO.numberOfGems)
-            {
-                
-            }
+            HandleWinConditions();
         }
     }
+
+    private void HandleWinConditions()
+    {
+        if (CollectedGems == gameLevelSO.numberOfGems)
+        {
+            ActionSceneManager.PlayScene(nextGameLevelSO.sceneName);
+        }
+    }
+
 
     private void Awake()
     {
@@ -65,5 +72,11 @@ public class LevelManager : MonoBehaviour
     private void RunLevel()
     {
 
+    }
+
+
+    public void CatchEventQueue(List<ActionModel> actionList)
+    {
+        Player.Instance.ActionList = actionList;
     }
 }

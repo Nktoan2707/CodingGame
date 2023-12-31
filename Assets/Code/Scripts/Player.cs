@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     public bool IsRotating { get; set; }
 
     private List<IInteractable> interactableObjectList;
-    private List<ActionModel> actionList;
+    public List<ActionModel> ActionList { get; set; }
 
     private void Awake()
     {
@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
         IsMoving = false;
         IsRotating = false;
         interactableObjectList = new List<IInteractable>();
-        actionList = new List<ActionModel>();
+        ActionList = new List<ActionModel>();
     }
 
     private void Start()
@@ -163,12 +163,12 @@ public class Player : MonoBehaviour
 
 
 
-        if (actionList.Count <= 0)
+        if (ActionList.Count <= 0)
         {
             return;
         }
 
-        ActionModel action = actionList[0];
+        ActionModel action = ActionList[0];
         switch (action.actionName)
         {
             case ActionName.TurnLeft:
@@ -187,7 +187,7 @@ public class Player : MonoBehaviour
                 Interact();
                 break;
         }
-        actionList.RemoveAt(0);
+        ActionList.RemoveAt(0);
     }
 
     private void Interact()
@@ -238,18 +238,6 @@ public class Player : MonoBehaviour
         }
 
         this.MovingDestination = newMovingDirection;
-    }
-
-    public void CatchEventQueue(List<ActionModel> actionList)
-    {
-        string logString = "";
-        foreach (ActionModel actionModel in actionList)
-        {
-            logString += $" > {actionModel.actionName}";
-        }
-        Debug.Log("Action Queue: " + logString);
-
-        this.actionList = actionList;
     }
 }
 
