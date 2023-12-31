@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
-    public bool IsEnabled { get; private set; }
+    public bool IsEnabled { get; set; }
 
     public event EventHandler<OnInteractionEventArgs> OnInteraction;
     public class OnInteractionEventArgs : EventArgs
@@ -26,8 +26,7 @@ public class Player : MonoBehaviour
     private const float MOVING_UNIT = 1f;
     private const float ROTATE_LEFT_DEGREE = 90f;
     private const float ROTATE_RIGHT_DEGREE = -90f;
-    private const float MINIMAL_SPEED_MULTIPLIER = 0.5f;
-    private const float MAXIMAL_SPEED_MULTIPLIER = 0.5f;
+   
 
     public Vector2 MovingDirection { get; set; }
     public Vector3 MovingDestination { get; set; }
@@ -44,7 +43,7 @@ public class Player : MonoBehaviour
     {
         Instance = this;
         IsEnabled = true;
-        Speed = 3f;
+        Speed = 1f;
         RotatingSpeed = 3f;
         rotatingTimerMax = 0.5f;
         rotatingTimer = rotatingTimerMax;
@@ -65,8 +64,12 @@ public class Player : MonoBehaviour
     {
         if (!IsEnabled)
         {
+            IsMoving = false;
+            IsRotating = false;
             return;
         }
+
+
 
         movingDistance = Speed * SpeedMultiplier * Time.deltaTime;
         IsMoving = !Mathf.Approximately(Vector3.Distance(transform.position, MovingDestination), 0);
@@ -74,12 +77,10 @@ public class Player : MonoBehaviour
 
         if (IsMoving)
         {
-
             HandleMovement();
         }
         else if (IsRotating)
         {
-
             HandleRotation();
         }
         else
@@ -105,23 +106,7 @@ public class Player : MonoBehaviour
         return;
     }
 
-    public void IncreasePlaybackSpeed()
-    {
-        if (SpeedMultiplier < MAXIMAL_SPEED_MULTIPLIER)
-        {
-            SpeedMultiplier += 0.5f;
-
-        }
-    }
-
-    public void DecreasePlaybackSpeed()
-    {
-        if (SpeedMultiplier > MINIMAL_SPEED_MULTIPLIER)
-        {
-            SpeedMultiplier -= 0.5f;
-
-        }
-    }
+    
 
 
     private Vector2 Rotate(Vector2 v, float degrees)

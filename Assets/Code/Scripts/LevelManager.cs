@@ -12,6 +12,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameLevelSO nextGameLevelSO;
     [SerializeField] private CollectibleObjectSO gemSO;
 
+    private const float MINIMAL_PLAYBACK_SPEED = 0.5f;
+    private const float MAXIMAL_PLAYBACK_SPEED = 4f;
+
+    private List<GameObject> spawnedObjectList;
+
     private int _collectedGems;
     public int CollectedGems
     {
@@ -30,8 +35,15 @@ public class LevelManager : MonoBehaviour
     {
         if (CollectedGems == gameLevelSO.numberOfGems)
         {
-            ActionSceneManager.currentGameLevelSO = nextGameLevelSO;
-            SceneManager.LoadScene("Action_Screen");
+            if (nextGameLevelSO != null)
+            {
+                ActionSceneManager.currentGameLevelSO = nextGameLevelSO;
+                SceneManager.LoadScene("Action_Screen");
+            } else
+            {
+                SceneManager.LoadScene("Scene_Select_Chapter");
+            }
+
         }
     }
 
@@ -41,13 +53,14 @@ public class LevelManager : MonoBehaviour
         Instance = this;
         CollectedGems = 0;
 
+        spawnedObjectList = new List<GameObject>();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
         LoadLevel();
-
     }
 
     // Update is called once per frame
@@ -58,27 +71,62 @@ public class LevelManager : MonoBehaviour
 
     private void LoadLevel()
     {
+        CleanUp();
+
         Player.Instance.transform.position = gameLevelSO.initialPlayerPosition;
         Player.Instance.MovingDestination = gameLevelSO.initialPlayerPosition;
         Player.Instance.MovingDirection = gameLevelSO.initialPlayerMovingDirection;
 
         foreach (Vector3 gemPosition in gameLevelSO.gemPositionList)
         {
-            GameObject gemObject = Instantiate(gemSO.prefab, this.transform.parent);
+            GameObject gemObject = Instantiate(gemSO.prefab);
             gemObject.transform.position = gemPosition;
+
+            spawnedObjectList.Add(gemObject);
         }
 
 
     }
 
-    private void RunLevel()
+    private void CleanUp()
     {
+        foreach(GameObject spawnedObject in spawnedObjectList)
+        {
+            Destroy(spawnedObject);
+        }
+        spawnedObjectList.Clear();
+    }
 
+    public void Pause()
+    {
+        Player.Instance.IsEnabled = false;
+    }
+
+    public void IncreasePlaybackSpeed()
+    {
+        if (Player.Instance.SpeedMultiplier < MAXIMAL_PLAYBACK_SPEED)
+        {
+            Player.Instance.SpeedMultiplier += 0.5f;
+            print(Player.Instance.SpeedMultiplier);
+        }
+    }
+
+    public void DecreasePlaybackSpeed()
+    {
+        if (Player.Instance.SpeedMultiplier > MINIMAL_PLAYBACK_SPEED)
+        {
+            Player.Instance.SpeedMultiplier -= 0.5f;
+            print(Player.Instance.SpeedMultiplier);
+
+        }
     }
 
 
-    public void CatchEventQueue(List<ActionModel> actionList)
+    public void Run(List<ActionModel> actionList)
     {
+        LoadLevel();
+        Player.Instance.IsEnabled = true;
         Player.Instance.ActionList = actionList;
     }
+
 }
