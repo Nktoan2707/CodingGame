@@ -29,8 +29,8 @@ public class Player : MonoBehaviour
     private const float MINIMAL_SPEED_MULTIPLIER = 0.5f;
     private const float MAXIMAL_SPEED_MULTIPLIER = 0.5f;
 
-    private Vector2 movingDirection;
-    private Vector3 movingDestination;
+    public Vector2 MovingDirection { get; set; }
+    public Vector3 MovingDestination { get; set; }
     private float movingDistance;
     public bool IsMoving { get; set; }
     private float rotatingTimer;
@@ -44,16 +44,11 @@ public class Player : MonoBehaviour
     {
         Instance = this;
         IsEnabled = true;
-
         Speed = 3f;
         RotatingSpeed = 3f;
         rotatingTimerMax = 0.5f;
         rotatingTimer = rotatingTimerMax;
         SpeedMultiplier = 1f;
-
-        transform.position = Vector3.zero;
-        movingDirection = new Vector2(1, 0);
-        movingDestination = transform.position;
         IsMoving = false;
         IsRotating = false;
         interactableObjectList = new List<IInteractable>();
@@ -74,7 +69,7 @@ public class Player : MonoBehaviour
         }
 
         movingDistance = Speed * SpeedMultiplier * Time.deltaTime;
-        IsMoving = !Mathf.Approximately(Vector3.Distance(transform.position, movingDestination), 0);
+        IsMoving = !Mathf.Approximately(Vector3.Distance(transform.position, MovingDestination), 0);
 
 
         if (IsMoving)
@@ -95,7 +90,7 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        transform.position = Vector3.MoveTowards(transform.position, movingDestination, movingDistance);
+        transform.position = Vector3.MoveTowards(transform.position, MovingDestination, movingDistance);
         return;
     }
 
@@ -145,21 +140,21 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            movingDirection = Rotate(movingDirection, ROTATE_LEFT_DEGREE);
+            MovingDirection = Rotate(MovingDirection, ROTATE_LEFT_DEGREE);
             IsRotating = true;
 
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            movingDirection = Rotate(movingDirection, ROTATE_RIGHT_DEGREE);
+            MovingDirection = Rotate(MovingDirection, ROTATE_RIGHT_DEGREE);
             IsRotating = true;
 
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            movingDirection.Normalize();
-            SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
+            MovingDirection.Normalize();
+            SetMovingDestination(transform.position + new Vector3(MovingDirection.x, MovingDirection.y));
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
@@ -177,16 +172,16 @@ public class Player : MonoBehaviour
         switch (action.actionName)
         {
             case ActionName.TurnLeft:
-                movingDirection = Rotate(movingDirection, ROTATE_LEFT_DEGREE);
+                MovingDirection = Rotate(MovingDirection, ROTATE_LEFT_DEGREE);
                 IsRotating = true;
                 break;
             case ActionName.TurnRight:
-                movingDirection = Rotate(movingDirection, ROTATE_RIGHT_DEGREE);
+                MovingDirection = Rotate(MovingDirection, ROTATE_RIGHT_DEGREE);
                 IsRotating = true;
                 break;
             case ActionName.MoveForward:
-                movingDirection.Normalize();
-                SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
+                MovingDirection.Normalize();
+                SetMovingDestination(transform.position + new Vector3(MovingDirection.x, MovingDirection.y));
                 break;
             case ActionName.PickUp:
                 Interact();
@@ -228,7 +223,7 @@ public class Player : MonoBehaviour
 
     public Vector2 GetMovingDirection()
     {
-        return movingDirection;
+        return MovingDirection;
     }
 
     private void SetMovingDestination(Vector3 newMovingDirection)
@@ -242,7 +237,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        this.movingDestination = newMovingDirection;
+        this.MovingDestination = newMovingDirection;
     }
 
     public void CatchEventQueue(List<ActionModel> actionList)
