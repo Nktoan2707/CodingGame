@@ -33,13 +33,14 @@ public class LevelManager : MonoBehaviour
 
     private void HandleWinConditions()
     {
-        if (CollectedGems == gameLevelSO.numberOfGems)
+        if (CollectedGems == gameLevelSO.gemPositionList.Count)
         {
             if (nextGameLevelSO != null)
             {
                 ActionSceneManager.currentGameLevelSO = nextGameLevelSO;
                 SceneManager.LoadScene("Action_Screen");
-            } else
+            }
+            else
             {
                 SceneManager.LoadScene("Scene_Select_Chapter");
             }
@@ -77,6 +78,8 @@ public class LevelManager : MonoBehaviour
         Player.Instance.MovingDestination = gameLevelSO.initialPlayerPosition;
         Player.Instance.MovingDirection = gameLevelSO.initialPlayerMovingDirection;
 
+
+
         foreach (Vector3 gemPosition in gameLevelSO.gemPositionList)
         {
             GameObject gemObject = Instantiate(gemSO.prefab);
@@ -86,11 +89,13 @@ public class LevelManager : MonoBehaviour
         }
 
 
+
+
     }
 
     private void CleanUp()
     {
-        foreach(GameObject spawnedObject in spawnedObjectList)
+        foreach (GameObject spawnedObject in spawnedObjectList)
         {
             Destroy(spawnedObject);
         }
