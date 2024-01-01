@@ -21,13 +21,16 @@ public class Player : MonoBehaviour
     public float Speed { get; private set; }
     public float SpeedMultiplier { get; set; }
 
-    private const float movingUnit = 1f;
+    private const float MOVING_UNIT = 1f;
+    private const float ROTATE_LEFT_DEGREE = 90f;
+    private const float ROTATE_RIGHT_DEGREE = -90f;
     private Vector2 movingDirection;
     private float movingDistance;
     private Vector3 movingDestination;
     public bool IsMoving { get; set; }
 
     private List<IInteractable> interactableObjectList;
+    private List<ActionModel> actionList;
 
     private void Awake()
     {
@@ -38,10 +41,11 @@ public class Player : MonoBehaviour
         SpeedMultiplier = 1f;
 
         transform.position = Vector3.zero;
-        movingDirection = Vector3.zero;
+        movingDirection = new Vector2(1, 0);
         movingDestination = transform.position;
         IsMoving = false;
         interactableObjectList = new List<IInteractable>();
+        actionList = new List<ActionModel>();
     }
 
     private void Start()
@@ -61,7 +65,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            ExecuteCommands();
+            ExecuteAction();
         }
     }
 
@@ -72,34 +76,65 @@ public class Player : MonoBehaviour
         return;
     }
 
-    private void ExecuteCommands()
+    private Vector2 Rotate(Vector2 v, float degrees)
     {
-        movingDirection = Vector2.zero;
+        float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
+        float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
+
+        float tx = v.x;
+        float ty = v.y;
+        v.x = (cos * tx) - (sin * ty);
+        v.y = (sin * tx) + (cos * ty);
+        return v;
+    }
+
+    private void ExecuteAction()
+    {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            movingDirection.x = -movingUnit;
+            movingDirection = Rotate(movingDirection, ROTATE_LEFT_DEGREE);
 
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            movingDirection.x = movingUnit;
+            movingDirection = Rotate(movingDirection, ROTATE_RIGHT_DEGREE);
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            movingDirection.y = movingUnit;
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            movingDirection.y = -movingUnit;
+            movingDirection.Normalize();
+            SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
             Interact();
         }
 
-        movingDirection.Normalize();
-        SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
+
+
+        if (actionList.Count <= 0)
+        {
+            return;
+        }
+
+        ActionModel action = actionList[0];
+        switch (action.actionName)
+        {
+            case ActionName.TurnLeft:
+                movingDirection = Rotate(movingDirection, ROTATE_LEFT_DEGREE);
+                break;
+            case ActionName.TurnRight:
+                movingDirection = Rotate(movingDirection, ROTATE_RIGHT_DEGREE);
+                break;
+            case ActionName.MoveForward:
+                movingDirection.Normalize();
+                SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
+                break;
+            case ActionName.PickUp:
+                Interact();
+                break;
+        }
+        actionList.RemoveAt(0);
     }
 
     private void Interact()
@@ -121,12 +156,16 @@ public class Player : MonoBehaviour
         {
             collectibleGem.DestroySelf();
         }
-        interactableObjectList.RemoveAt(0);
     }
 
     public void AddInteractableObject(IInteractable interactableObject)
     {
         interactableObjectList.Add(interactableObject);
+    }
+
+    public void RemoveInteractableObject(IInteractable interactableObject)
+    {
+        interactableObjectList.Remove(interactableObject);
     }
 
     public Vector2 GetMovingDirection()
@@ -136,7 +175,11 @@ public class Player : MonoBehaviour
 
     private void SetMovingDestination(Vector3 newMovingDirection)
     {
-        if(Physics2D.OverlapCircle(newMovingDirection, 0.1f))
+        Vector3 offset = new Vector3(0.5f, 0.5f, 0);
+        Collider2D collider2D = Physics2D.OverlapCircle(newMovingDirection + offset, 0.1f);
+
+        // if there is something, and that is not IInteractable
+        if (collider2D != null && !collider2D.gameObject.TryGetComponent<IInteractable>(out _))
         {
             return;
         }
@@ -144,12 +187,16 @@ public class Player : MonoBehaviour
         this.movingDestination = newMovingDirection;
     }
 
-    public void catchEventQueue(List<ActionModel> actionList) {
+    public void CatchEventQueue(List<ActionModel> actionList)
+    {
         string logString = "";
-        foreach(ActionModel actionModel in actionList) {
+        foreach (ActionModel actionModel in actionList)
+        {
             logString += $" > {actionModel.actionName}";
         }
         Debug.Log("Action Queue: " + logString);
+
+        this.actionList = actionList;
     }
 }
 
