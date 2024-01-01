@@ -7,4 +7,5 @@ public class AudioClipReferenceListSO : ScriptableObject
 {
     public List<AudioClip> footstep;
     public List<AudioClip> gemPickup;
+    public List<AudioClip> switchToggle;
 }
