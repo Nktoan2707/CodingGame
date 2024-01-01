@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private const float MOVING_UNIT = 1f;
     private const float ROTATE_LEFT_DEGREE = 90f;
     private const float ROTATE_RIGHT_DEGREE = -90f;
-   
+
 
     public Vector2 MovingDirection { get; set; }
     public Vector3 MovingDestination { get; set; }
@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
         return;
     }
 
-    
+
 
 
     private Vector2 Rotate(Vector2 v, float degrees)
@@ -143,7 +143,11 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
-            Interact();
+            Interact(ActionName.PickUp);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            Interact(ActionName.ToggleSwitch);
         }
 
 
@@ -169,31 +173,54 @@ public class Player : MonoBehaviour
                 SetMovingDestination(transform.position + new Vector3(MovingDirection.x, MovingDirection.y));
                 break;
             case ActionName.PickUp:
-                Interact();
+                Interact(ActionName.PickUp);
                 break;
         }
         ActionList.RemoveAt(0);
     }
 
-    private void Interact()
+    private void Interact(ActionName actionName)
     {
         if (interactableObjectList.Count <= 0)
         {
             return;
         }
-
-        interactableObjectList[0].Interact();
-        OnInteraction?.Invoke(this, new OnInteractionEventArgs
+        switch (actionName)
         {
-            interactedObject = interactableObjectList[0]
-        });
-
-        // if interacted object is a gem
-        CollectibleGem collectibleGem = interactableObjectList[0] as CollectibleGem;
-        if (collectibleGem != null)
-        {
-            collectibleGem.DestroySelf();
+            case ActionName.PickUp:
+                foreach(IInteractable interactableObject in interactableObjectList)
+                {
+                    CollectibleGem collectibleGem = interactableObject as CollectibleGem;
+                    if (collectibleGem != null)
+                    {
+                        collectibleGem.Interact();
+                        OnInteraction?.Invoke(this, new OnInteractionEventArgs
+                        {
+                            interactedObject = collectibleGem
+                        });
+                        collectibleGem.DestroySelf();
+                        break;
+                    }
+                }
+                break;
+            case ActionName.ToggleSwitch:
+                foreach (IInteractable interactableObject in interactableObjectList)
+                {
+                    TeleportSwitch teleportSwitch = interactableObject as TeleportSwitch;
+                    if (teleportSwitch != null)
+                    {
+                        teleportSwitch.Interact();
+                        OnInteraction?.Invoke(this, new OnInteractionEventArgs
+                        {
+                            interactedObject = teleportSwitch
+                        });
+                        break;
+                    }
+                }
+                break;
         }
+
+        
     }
 
     public void AddInteractableObject(IInteractable interactableObject)
