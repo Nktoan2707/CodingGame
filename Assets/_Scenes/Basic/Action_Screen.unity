@@ -797,6 +797,10 @@ MonoBehaviour:
     type: 3}
   actionFor: {fileID: 698229049310909618, guid: c63ab252cc824419898e70a2024faed0,
     type: 3}
+  actionToggleSwitch: {fileID: 8272841839388870919, guid: 9f075e65b30b1a742a3ce52ae01389e8,
+    type: 3}
+  actionAttack: {fileID: 8272841839388870919, guid: 7d3f3f40d713cbf4d987e6e48abc00b9,
+    type: 3}
 --- !u!1 &534675437
 GameObject:
   m_ObjectHideFlags: 0
