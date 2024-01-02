@@ -19,6 +19,7 @@ public class SelectLevel : MonoBehaviour
 
     public void LoadLevel()
     {
+        SceneManager.UnloadSceneAsync("Scene_MainMenu");
         SceneManager.LoadSceneAsync("Scene_Select_Chapter", LoadSceneMode.Additive);
     }
 
@@ -27,5 +28,6 @@ public class SelectLevel : MonoBehaviour
     public void UnloadLevel()
     {
         SceneManager.UnloadSceneAsync("Scene_Select_Chapter");
+        SceneManager.LoadSceneAsync("Scene_MainMenu", LoadSceneMode.Additive);
     }
 }

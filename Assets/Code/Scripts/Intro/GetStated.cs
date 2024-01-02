@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SelectChapter : MonoBehaviour
+public class GetStarted : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -17,9 +17,15 @@ public class SelectChapter : MonoBehaviour
         
     }
 
-    public void LoadChapter()
+    public void LoadMenu()
     {
-        SceneManager.UnloadSceneAsync("Scene_Select_Chapter");
-        SceneManager.LoadSceneAsync("Action_Screen");
+        SceneManager.LoadSceneAsync("Scene_MainMenu", LoadSceneMode.Additive);
+    }
+
+    
+
+    public void UnloadIntro()
+    {
+        SceneManager.UnloadSceneAsync("Scene_Intro");
     }
 }
