@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3146b7898585643c7bcbbafab0bbe9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionHolder: {fileID: 5672024822873755416, guid: c6da4c54cc5e242628023812d8f9c8f4,
+    type: 3}
 --- !u!114 &997000998103728871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +108,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 1
   m_StartCorner: 1
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}

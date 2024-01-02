@@ -20,18 +20,15 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
        transform.SetAsLastSibling();
        image.raycastTarget = false;
     }
-
     public void OnDrag(PointerEventData eventData) {
         rectTransform.position = Input.mousePosition;
     }
-
     public void OnEndDrag(PointerEventData eventData) { 
        canvasGroup.alpha = 1f;
        canvasGroup.blocksRaycasts = true;
        transform.SetParent(parentAfterDrag);
        image.raycastTarget = true;
     }
-
     void Awake() {
         rectTransform = gameObject.GetComponent<RectTransform>();
         canvasGroup = gameObject.GetComponent<CanvasGroup>();

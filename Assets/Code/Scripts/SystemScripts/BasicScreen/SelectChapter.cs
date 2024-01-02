@@ -17,9 +17,9 @@ public class SelectChapter : MonoBehaviour
         
     }
 
-    public void LoadChapter()
+    public void LoadChapter(GameLevelSO gameLevelSO)
     {
-        SceneManager.UnloadSceneAsync("Scene_Select_Chapter");
+        ActionSceneManager.currentGameLevelSO = gameLevelSO;
         SceneManager.LoadSceneAsync("Action_Screen");
     }
 }

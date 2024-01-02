@@ -30,6 +30,14 @@ public class SoundManager : MonoBehaviour
         if (collectibleGem != null)
         {
             PlaySound(AudioClipReferenceListSO.gemPickup, collectibleGem.transform.position);
+            return;
+        }
+
+        TeleportSwitch teleportSwitch = e.interactedObject as TeleportSwitch;
+        if (teleportSwitch != null)
+        {
+            PlaySound(AudioClipReferenceListSO.switchToggle, teleportSwitch.transform.position);
+            return;
         }
     }
 
