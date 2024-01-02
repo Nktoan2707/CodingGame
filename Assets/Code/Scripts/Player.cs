@@ -184,6 +184,9 @@ public class Player : Creature, IIDamageable
             case ActionName.Attack:
                 Attack();
                 break;
+            case ActionName.ToggleSwitch:
+                Interact(ActionName.ToggleSwitch);
+                break;
         }
         ActionList.RemoveAt(0);
     }
