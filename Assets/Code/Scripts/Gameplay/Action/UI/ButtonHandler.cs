@@ -31,7 +31,7 @@ public class ButtonHandler : MonoBehaviour {
 
     public void OnStopClick()
     {
-        SceneManager.LoadScene("Action_Screen");
+        SceneManager.LoadScene("Scene_Gameplay_Action");
 
     }
 

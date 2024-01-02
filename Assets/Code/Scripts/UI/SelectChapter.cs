@@ -20,6 +20,6 @@ public class SelectChapter : MonoBehaviour
     public void LoadChapter(GameLevelSO gameLevelSO)
     {
         ActionSceneManager.currentGameLevelSO = gameLevelSO;
-        SceneManager.LoadSceneAsync("Action_Screen");
+        SceneManager.LoadSceneAsync("Scene_Gameplay_Action");
     }
 }

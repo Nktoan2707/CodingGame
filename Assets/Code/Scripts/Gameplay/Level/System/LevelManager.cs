@@ -39,7 +39,7 @@ public class LevelManager : MonoBehaviour
             if (nextGameLevelSO != null)
             {
                 ActionSceneManager.currentGameLevelSO = nextGameLevelSO;
-                SceneManager.LoadScene("Action_Screen");
+                SceneManager.LoadScene("Scene_Gameplay_Action");
             }
             else
             {
