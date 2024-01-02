@@ -2,15 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
 
-public class Player : MonoBehaviour
+public class Player : Creature, IIDamageable
 {
     public static Player Instance { get; private set; }
 
-    public bool IsEnabled { get; private set; }
+    public bool IsEnabled { get; set; }
 
     public event EventHandler<OnInteractionEventArgs> OnInteraction;
     public class OnInteractionEventArgs : EventArgs
@@ -19,33 +20,40 @@ public class Player : MonoBehaviour
     }
 
     public float Speed { get; private set; }
+    public float RotatingSpeed { get; private set; }
     public float SpeedMultiplier { get; set; }
 
     private const float MOVING_UNIT = 1f;
     private const float ROTATE_LEFT_DEGREE = 90f;
     private const float ROTATE_RIGHT_DEGREE = -90f;
-    private Vector2 movingDirection;
+
+
+    public Vector2 MovingDirection { get; set; }
+    public Vector3 MovingDestination { get; set; }
     private float movingDistance;
-    private Vector3 movingDestination;
     public bool IsMoving { get; set; }
+    private float rotatingTimer;
+    private float rotatingTimerMax;
+    public bool IsRotating { get; set; }
 
     private List<IInteractable> interactableObjectList;
-    private List<ActionModel> actionList;
+    public List<ActionModel> ActionList { get; set; }
 
-    private void Awake()
+    private new void Awake()
     {
+        base.Awake();
+
         Instance = this;
         IsEnabled = true;
-
-        Speed = 3f;
+        Speed = 1f;
+        RotatingSpeed = 3f;
+        rotatingTimerMax = 0.5f;
+        rotatingTimer = rotatingTimerMax;
         SpeedMultiplier = 1f;
-
-        transform.position = Vector3.zero;
-        movingDirection = new Vector2(1, 0);
-        movingDestination = transform.position;
         IsMoving = false;
+        IsRotating = false;
         interactableObjectList = new List<IInteractable>();
-        actionList = new List<ActionModel>();
+        ActionList = new List<ActionModel>();
     }
 
     private void Start()
@@ -56,12 +64,26 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (!IsEnabled)
+        {
+            IsMoving = false;
+            IsRotating = false;
+            return;
+        }
+
+
+
         movingDistance = Speed * SpeedMultiplier * Time.deltaTime;
-        IsMoving = !Mathf.Approximately(Vector3.Distance(transform.position, movingDestination), 0);
+        IsMoving = !Mathf.Approximately(Vector3.Distance(transform.position, MovingDestination), 0);
+
 
         if (IsMoving)
         {
             HandleMovement();
+        }
+        else if (IsRotating)
+        {
+            HandleRotation();
         }
         else
         {
@@ -71,10 +93,23 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        transform.position = Vector3.MoveTowards(transform.position, movingDestination, movingDistance);
-        IsMoving = true;
+        transform.position = Vector3.MoveTowards(transform.position, MovingDestination, movingDistance);
         return;
     }
+
+    private void HandleRotation()
+    {
+        rotatingTimer -= Time.deltaTime * SpeedMultiplier;
+        if (rotatingTimer <= 0)
+        {
+            rotatingTimer = rotatingTimerMax;
+            IsRotating = false;
+        }
+        return;
+    }
+
+
+
 
     private Vector2 Rotate(Vector2 v, float degrees)
     {
@@ -92,70 +127,112 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            movingDirection = Rotate(movingDirection, ROTATE_LEFT_DEGREE);
+            MovingDirection = Rotate(MovingDirection, ROTATE_LEFT_DEGREE);
+            IsRotating = true;
 
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            movingDirection = Rotate(movingDirection, ROTATE_RIGHT_DEGREE);
+            MovingDirection = Rotate(MovingDirection, ROTATE_RIGHT_DEGREE);
+            IsRotating = true;
+
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            movingDirection.Normalize();
-            SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
+            MovingDirection.Normalize();
+            SetMovingDestination(transform.position + new Vector3(MovingDirection.x, MovingDirection.y));
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
-            Interact();
+            Interact(ActionName.PickUp);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            Interact(ActionName.ToggleSwitch);
+        }
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            Attack();
         }
 
 
 
-        if (actionList.Count <= 0)
+        if (ActionList.Count <= 0)
         {
             return;
         }
 
-        ActionModel action = actionList[0];
+        ActionModel action = ActionList[0];
         switch (action.actionName)
         {
             case ActionName.TurnLeft:
-                movingDirection = Rotate(movingDirection, ROTATE_LEFT_DEGREE);
+                MovingDirection = Rotate(MovingDirection, ROTATE_LEFT_DEGREE);
+                IsRotating = true;
                 break;
             case ActionName.TurnRight:
-                movingDirection = Rotate(movingDirection, ROTATE_RIGHT_DEGREE);
+                MovingDirection = Rotate(MovingDirection, ROTATE_RIGHT_DEGREE);
+                IsRotating = true;
                 break;
             case ActionName.MoveForward:
-                movingDirection.Normalize();
-                SetMovingDestination(transform.position + new Vector3(movingDirection.x, movingDirection.y));
+                MovingDirection.Normalize();
+                SetMovingDestination(transform.position + new Vector3(MovingDirection.x, MovingDirection.y));
                 break;
             case ActionName.PickUp:
-                Interact();
+                Interact(ActionName.PickUp);
+                break;
+            case ActionName.Attack:
+                Attack();
+                break;
+            case ActionName.ToggleSwitch:
+                Interact(ActionName.ToggleSwitch);
                 break;
         }
-        actionList.RemoveAt(0);
+        ActionList.RemoveAt(0);
     }
 
-    private void Interact()
+    private void Interact(ActionName actionName)
     {
         if (interactableObjectList.Count <= 0)
         {
             return;
         }
-
-        interactableObjectList[0].Interact();
-        OnInteraction?.Invoke(this, new OnInteractionEventArgs
+        switch (actionName)
         {
-            interactedObject = interactableObjectList[0]
-        });
-
-        // if interacted object is a gem
-        CollectibleGem collectibleGem = interactableObjectList[0] as CollectibleGem;
-        if (collectibleGem != null)
-        {
-            collectibleGem.DestroySelf();
+            case ActionName.PickUp:
+                foreach(IInteractable interactableObject in interactableObjectList)
+                {
+                    CollectibleGem collectibleGem = interactableObject as CollectibleGem;
+                    if (collectibleGem != null)
+                    {
+                        collectibleGem.Interact();
+                        OnInteraction?.Invoke(this, new OnInteractionEventArgs
+                        {
+                            interactedObject = collectibleGem
+                        });
+                        collectibleGem.DestroySelf();
+                        break;
+                    }
+                }
+                break;
+            case ActionName.ToggleSwitch:
+                foreach (IInteractable interactableObject in interactableObjectList)
+                {
+                    TeleportSwitch teleportSwitch = interactableObject as TeleportSwitch;
+                    if (teleportSwitch != null)
+                    {
+                        teleportSwitch.Interact();
+                        OnInteraction?.Invoke(this, new OnInteractionEventArgs
+                        {
+                            interactedObject = teleportSwitch
+                        });
+                        break;
+                    }
+                }
+                break;
         }
+
+        
     }
 
     public void AddInteractableObject(IInteractable interactableObject)
@@ -170,13 +247,14 @@ public class Player : MonoBehaviour
 
     public Vector2 GetMovingDirection()
     {
-        return movingDirection;
+        return MovingDirection;
     }
 
     private void SetMovingDestination(Vector3 newMovingDirection)
     {
         Vector3 offset = new Vector3(0.5f, 0.5f, 0);
-        Collider2D collider2D = Physics2D.OverlapCircle(newMovingDirection + offset, 0.1f);
+        float detectCircleRadius = 0.1f;
+        Collider2D collider2D = Physics2D.OverlapCircle(newMovingDirection + offset, detectCircleRadius);
 
         // if there is something, and that is not IInteractable
         if (collider2D != null && !collider2D.gameObject.TryGetComponent<IInteractable>(out _))
@@ -184,19 +262,36 @@ public class Player : MonoBehaviour
             return;
         }
 
-        this.movingDestination = newMovingDirection;
+        this.MovingDestination = newMovingDirection;
     }
 
-    public void CatchEventQueue(List<ActionModel> actionList)
+    public void TakeDamage(float damage)
     {
-        string logString = "";
-        foreach (ActionModel actionModel in actionList)
+        CurrentHP = Mathf.Clamp(CurrentHP - damage, 0, CreatureSO.maxHP);
+        if (CurrentHP <= 0)
         {
-            logString += $" > {actionModel.actionName}";
+            Die();
         }
-        Debug.Log("Action Queue: " + logString);
-
-        this.actionList = actionList;
     }
+
+    public void Attack()
+    {
+        Vector3 offset = new Vector3(0.5f, 0.5f, 0);
+        Vector3 attackPosition = transform.position + new Vector3(MovingDirection.x, MovingDirection.y);
+        float attackCircleRadius = 0.1f;
+
+        Collider2D collider2D = Physics2D.OverlapCircle(attackPosition + offset, attackCircleRadius);
+        if (collider2D == null)
+        {
+            return;
+        }
+
+        if (collider2D.gameObject.TryGetComponent<Creature>(out Creature attackedCreature))
+        {
+            CombatManager.Instance.HandleCombatTurn(this, attackedCreature);
+        }
+    }
+
+  
 }
 

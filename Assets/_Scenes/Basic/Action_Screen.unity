@@ -633,7 +633,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 381278853}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2012275815}
+        m_TargetAssemblyTypeName: ButtonHandler, Assembly-CSharp
+        m_MethodName: OnStopClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &381278853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,6 +796,10 @@ MonoBehaviour:
   actionFunction: {fileID: 2694562126374261294, guid: 6f1e3df6d7c784ae580fadc00a97e747,
     type: 3}
   actionFor: {fileID: 698229049310909618, guid: c63ab252cc824419898e70a2024faed0,
+    type: 3}
+  actionToggleSwitch: {fileID: 8272841839388870919, guid: 9f075e65b30b1a742a3ce52ae01389e8,
+    type: 3}
+  actionAttack: {fileID: 8272841839388870919, guid: 7d3f3f40d713cbf4d987e6e48abc00b9,
     type: 3}
 --- !u!1 &534675437
 GameObject:
@@ -1090,7 +1106,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 718524846}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2012275815}
+        m_TargetAssemblyTypeName: ButtonHandler, Assembly-CSharp
+        m_MethodName: OnFasterClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &718524846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1211,7 +1239,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 842793361}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2012275815}
+        m_TargetAssemblyTypeName: ButtonHandler, Assembly-CSharp
+        m_MethodName: OnSlowerClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &842793361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1382,7 +1422,6 @@ GameObject:
   - component: {fileID: 974628979}
   - component: {fileID: 974628981}
   - component: {fileID: 974628980}
-  - component: {fileID: 974628982}
   m_Layer: 0
   m_Name: LevelFrame
   m_TagString: Untagged
@@ -1447,18 +1486,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974628978}
   m_CullTransparentMesh: 1
---- !u!114 &974628982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974628978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 488c010cd63ec4f3e9a10ada2f91bb23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1003548427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,7 +1498,6 @@ GameObject:
   - component: {fileID: 1003548431}
   - component: {fileID: 1003548430}
   - component: {fileID: 1003548429}
-  - component: {fileID: 1003548432}
   m_Layer: 5
   m_Name: RunButton
   m_TagString: Untagged
@@ -1543,9 +1569,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1003548432}
+      - m_Target: {fileID: 2012275815}
         m_TargetAssemblyTypeName: ButtonHandler, Assembly-CSharp
-        m_MethodName: onRunClick
+        m_MethodName: OnRunClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1593,19 +1619,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003548427}
   m_CullTransparentMesh: 1
---- !u!114 &1003548432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003548427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f48cb02902244e10ae2dc50f4d95827, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionQueueList: {fileID: 121239431}
 --- !u!1 &1026964224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,7 +1838,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1193668499}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2012275815}
+        m_TargetAssemblyTypeName: ButtonHandler, Assembly-CSharp
+        m_MethodName: OnPauseClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1193668499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2281,6 +2306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2012275813}
   - component: {fileID: 2012275814}
+  - component: {fileID: 2012275815}
   m_Layer: 5
   m_Name: ButtonList
   m_TagString: Untagged
@@ -2338,6 +2364,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2012275815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012275812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f48cb02902244e10ae2dc50f4d95827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionQueueList: {fileID: 121239431}
 --- !u!1 &2036469020
 GameObject:
   m_ObjectHideFlags: 0

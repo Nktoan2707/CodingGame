@@ -21,16 +21,26 @@ public class PlayerAnimator : MonoBehaviour
 
     void Update()
     {
+        animator.SetBool("IsMoving", player.IsMoving);
+
+
+        if (player.IsRotating)
+        {
+            return;
+        }
+
         Vector2 movingDirection = player.GetMovingDirection();
         if (movingDirection.y == -1)
         {
             animator.SetInteger(DIRECTION, SOUTH);
 
-        } else if (movingDirection.y == 1)
+        }
+        else if (movingDirection.y == 1)
         {
             animator.SetInteger(DIRECTION, NORTH);
 
-        } else if (movingDirection.x == 1)
+        }
+        else if (movingDirection.x == 1)
         {
             animator.SetInteger(DIRECTION, EAST);
 
@@ -40,8 +50,5 @@ public class PlayerAnimator : MonoBehaviour
             animator.SetInteger(DIRECTION, WEST);
 
         }
-
-
-        animator.SetBool("IsMoving", player.IsMoving);
     }
 }
