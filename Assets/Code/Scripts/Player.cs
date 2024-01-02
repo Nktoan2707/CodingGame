@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 
 
-public class Player : MonoBehaviour
+public class Player : Creature, IIDamageable
 {
     public static Player Instance { get; private set; }
 
@@ -39,8 +39,10 @@ public class Player : MonoBehaviour
     private List<IInteractable> interactableObjectList;
     public List<ActionModel> ActionList { get; set; }
 
-    private void Awake()
+    private new void Awake()
     {
+        base.Awake();
+
         Instance = this;
         IsEnabled = true;
         Speed = 1f;
@@ -149,6 +151,10 @@ public class Player : MonoBehaviour
         {
             Interact(ActionName.ToggleSwitch);
         }
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            Attack();
+        }
 
 
 
@@ -174,6 +180,9 @@ public class Player : MonoBehaviour
                 break;
             case ActionName.PickUp:
                 Interact(ActionName.PickUp);
+                break;
+            case ActionName.Attack:
+                Attack();
                 break;
         }
         ActionList.RemoveAt(0);
@@ -241,7 +250,8 @@ public class Player : MonoBehaviour
     private void SetMovingDestination(Vector3 newMovingDirection)
     {
         Vector3 offset = new Vector3(0.5f, 0.5f, 0);
-        Collider2D collider2D = Physics2D.OverlapCircle(newMovingDirection + offset, 0.1f);
+        float detectCircleRadius = 0.1f;
+        Collider2D collider2D = Physics2D.OverlapCircle(newMovingDirection + offset, detectCircleRadius);
 
         // if there is something, and that is not IInteractable
         if (collider2D != null && !collider2D.gameObject.TryGetComponent<IInteractable>(out _))
@@ -250,6 +260,28 @@ public class Player : MonoBehaviour
         }
 
         this.MovingDestination = newMovingDirection;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        CurrentHP = Mathf.Clamp(CurrentHP - damage, 0, CreatureSO.maxHP);
+    }
+
+    public void Attack()
+    {
+        Vector3 offset = new Vector3(0.5f, 0.5f, 0);
+        Vector3 attackPosition = new Vector3(MovingDirection.x, MovingDirection.y, 0);
+        float attackCircleRadius = 0.1f;
+
+        Collider2D collider2D = Physics2D.OverlapCircle(attackPosition + offset, attackCircleRadius);
+        if (collider2D == null)
+        {
+            return;
+        }
+        if (collider2D.gameObject.TryGetComponent<Creature>(out Creature attackedCreature))
+        {
+            CombatManager.Instance.HandleCombatTurn(this, attackedCreature);
+        }
     }
 }
 
