@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ActionName
 {
-    TurnLeft, TurnRight, MoveForward, PickUp, ToggleSwitch, Attack
+    TurnLeft, TurnRight, MoveForward, PickUp, Function, For, ToggleSwitch, Attack
 }
 
 public class ActionModel {

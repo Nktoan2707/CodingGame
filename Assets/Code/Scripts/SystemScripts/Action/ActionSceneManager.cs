@@ -13,6 +13,7 @@ public class ActionSceneManager : MonoBehaviour
 
     [SerializeField] GameObject actionList;
     [SerializeField] GameObject actionQueue;
+    [SerializeField] GameObject actionFunction;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class ActionSceneManager : MonoBehaviour
         }
         actionList.GetComponent<ActionListManager>().updateActionList();
         actionQueue.GetComponent<ActionQueueManager>().updateActionQueue();
+        actionFunction.GetComponent<FunctionActionQueue>().initFunctionAction();
     }
 
     public static void PlayScene(string sceneName)

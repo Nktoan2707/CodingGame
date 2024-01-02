@@ -3,12 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ActionQueueManager : MonoBehaviour {
+    public static ActionQueueManager Instance { get; private set; }
     [SerializeField] GameObject actionSlot;
+
+    private void Start() {
+        if (Instance == null)  {
+            Instance = this;
+        }
+    }
     public void updateActionQueue() {
         List<ActionModel> actionList = ActionSceneManager.initActionList;
+        bool haveFunction = false;    
+
         foreach(ActionModel actionModel in actionList) {
+            if (actionModel.actionName == ActionName.Function) {
+                haveFunction = true;
+            }
             GameObject InstantiatedActionSlot= Instantiate(actionSlot);
             InstantiatedActionSlot.transform.SetParent(transform);
+        }
+        GameObject actionQueueListView = transform.parent.gameObject;
+        RectTransform rectTransform = actionQueueListView.GetComponent< RectTransform >();
+        if (haveFunction) {
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (float)488.36);
+
+            rectTransform.anchoredPosition = new Vector2(
+                rectTransform.anchoredPosition.x,
+                (float)244.18
+            );
+        }
+        else {
+            rectTransform.anchoredPosition = new Vector2(
+                rectTransform.anchoredPosition.x,
+                (float)76.67999
+            );
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (float)823.36);
         }
     }
 
@@ -33,7 +62,15 @@ public class ActionQueueManager : MonoBehaviour {
                         result.Add(new ActionModel(ActionName.PickUp)); 
                         break;
                     }
-
+                    case "ACTIONFUNCTION(CLONE)": {
+                        result.AddRange(FunctionActionQueue.Instance.getActionFunctionList());
+                        break;
+                    }
+                    case "ACTIONFOR(CLONE)": {
+                        ActionForManager currentFor = actionGameObject.gameObject.GetComponent<ActionForManager>();
+                        result.AddRange(currentFor.getActionForLoop());
+                        break;
+                    }
                 }
             }
         }
