@@ -265,12 +265,16 @@ public class Player : Creature, IIDamageable
     public void TakeDamage(float damage)
     {
         CurrentHP = Mathf.Clamp(CurrentHP - damage, 0, CreatureSO.maxHP);
+        if (CurrentHP <= 0)
+        {
+            Die();
+        }
     }
 
     public void Attack()
     {
         Vector3 offset = new Vector3(0.5f, 0.5f, 0);
-        Vector3 attackPosition = new Vector3(MovingDirection.x, MovingDirection.y, 0);
+        Vector3 attackPosition = transform.position + new Vector3(MovingDirection.x, MovingDirection.y);
         float attackCircleRadius = 0.1f;
 
         Collider2D collider2D = Physics2D.OverlapCircle(attackPosition + offset, attackCircleRadius);
@@ -278,10 +282,13 @@ public class Player : Creature, IIDamageable
         {
             return;
         }
+
         if (collider2D.gameObject.TryGetComponent<Creature>(out Creature attackedCreature))
         {
             CombatManager.Instance.HandleCombatTurn(this, attackedCreature);
         }
     }
+
+  
 }
 

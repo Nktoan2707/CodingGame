@@ -14,5 +14,9 @@ public class Slime : Creature, IIDamageable
     public void TakeDamage(float damage)
     {
         CurrentHP = Mathf.Clamp(CurrentHP - damage, 0, CreatureSO.maxHP);
+        if (CurrentHP <= 0)
+        {
+            Die();
+        }
     }
 }

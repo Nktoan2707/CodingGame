@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
+[CreateAssetMenu(fileName = "GameLevelSO", menuName = "ScriptableObject/GameLevelSO")]
+
 public class GameLevelSO : ScriptableObject
 {
     public string sceneName;
