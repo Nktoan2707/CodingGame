@@ -16,7 +16,7 @@ MonoBehaviour:
   category: Basic
   level: 5
   initialPlayerPosition: {x: 0, y: 0, z: 0}
-  initialPlayerMovingDirection: {x: 0, y: -1}
+  initialPlayerMovingDirection: {x: 1, y: 0}
   gemPositionList:
-  - {x: 6, y: 0, z: 0}
-  actionNameList: 0200000002000000020000000200000002000000020000000200000002000000020000000200000002000000000000000000000001000000010000000100000003000000
+  - {x: 7, y: 0, z: 0}
+  actionNameList: 020000000200000002000000020000000200000002000000020000000500000003000000

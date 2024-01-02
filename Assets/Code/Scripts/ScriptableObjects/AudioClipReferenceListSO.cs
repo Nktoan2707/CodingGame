@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
+[CreateAssetMenu(fileName = "AudioClipReferenceListSO", menuName = "ScriptableObject/AudioClipReferenceListSO")]
+
 public class AudioClipReferenceListSO : ScriptableObject
 {
     public List<AudioClip> footstep;

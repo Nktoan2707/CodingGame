@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd146093740c5d43b5909c7913f3109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creatureSO: {fileID: 11400000, guid: d61f10358ed0e9d4ca415584dd59463d, type: 2}
 --- !u!114 &1868307221858481955
 MonoBehaviour:
   m_ObjectHideFlags: 0
