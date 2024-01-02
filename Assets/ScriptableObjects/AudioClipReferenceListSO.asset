@@ -19,3 +19,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 46238bf0777881445972edd7fd454072, type: 3}
   gemPickup:
   - {fileID: 8300000, guid: a91f4f7b6e6943547b95ea3e7f824588, type: 3}
+  switchToggle:
+  - {fileID: 8300000, guid: b5e51d5350a112b4eb395fc4a077e3d5, type: 3}
