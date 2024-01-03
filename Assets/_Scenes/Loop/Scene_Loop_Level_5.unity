@@ -11026,9 +11026,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d5996e838e76474b8c36ec30d48ec90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameLevelSO: {fileID: 11400000, guid: 66f130c325f7dba48b5e671e9d9aa826, type: 2}
-  nextGameLevelSO: {fileID: 11400000, guid: de8c2bd1182f1164ba55525dc93f6506, type: 2}
-  gemSO: {fileID: 0}
+  gameLevelSO: {fileID: 11400000, guid: 6496e23a031f61949b8b0c0588be3b01, type: 2}
+  nextGameLevelSO: {fileID: 11400000, guid: 7d299a7baa836b9459245fcaa785ee69, type: 2}
+  gemSO: {fileID: 11400000, guid: 86e54031f7625c0489905b24a6570652, type: 2}
   monsterSO: {fileID: 11400000, guid: 04c7838dd82c69e4c84c643afda7a16b, type: 2}
   teleportList: []
   teleportSwitchList: []
