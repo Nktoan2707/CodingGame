@@ -2631,7 +2631,7 @@ MonoBehaviour:
         m_MethodName: LoadChapter
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 5dd643bb4c2075c46ae580dd592396b1,
+          m_ObjectArgument: {fileID: 11400000, guid: 6496e23a031f61949b8b0c0588be3b01,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: GameLevelSO, Assembly-CSharp
           m_IntArgument: 0
