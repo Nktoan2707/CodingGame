@@ -19,8 +19,7 @@ public class LevelManager : MonoBehaviour
     private List<GameObject> spawnedObjectList;
 
     private int _collectedGems;
-    public int CollectedGems
-    {
+    public int CollectedGems {
         get
         {
             return _collectedGems;
@@ -32,8 +31,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void HandleWinConditions()
-    {
+    private void HandleWinConditions() {
         if (CollectedGems == gameLevelSO.gemPositionList.Count)
         {
             if (nextGameLevelSO != null)
@@ -49,9 +47,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
-    private void Awake()
-    {
+    private void Awake() {
         Instance = this;
         CollectedGems = 0;
 
@@ -60,19 +56,11 @@ public class LevelManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         LoadLevel();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void LoadLevel()
-    {
+    private void LoadLevel() {
         CleanUp();
 
         Player.Instance.transform.position = gameLevelSO.initialPlayerPosition;
@@ -94,8 +82,7 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    private void CleanUp()
-    {
+    private void CleanUp() {
         foreach (GameObject spawnedObject in spawnedObjectList)
         {
             Destroy(spawnedObject);
@@ -108,13 +95,11 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void Pause()
-    {
+    public void Pause() {
         Player.Instance.IsEnabled = false;
     }
 
-    public void IncreasePlaybackSpeed()
-    {
+    public void IncreasePlaybackSpeed() {
         if (Player.Instance.SpeedMultiplier < MAXIMAL_PLAYBACK_SPEED)
         {
             Player.Instance.SpeedMultiplier += 0.5f;
@@ -122,8 +107,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void DecreasePlaybackSpeed()
-    {
+    public void DecreasePlaybackSpeed() {
         if (Player.Instance.SpeedMultiplier > MINIMAL_PLAYBACK_SPEED)
         {
             Player.Instance.SpeedMultiplier -= 0.5f;
@@ -133,8 +117,7 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void Run(List<ActionModel> actionList)
-    {
+    public void Run(List<ActionModel> actionList) {
         LoadLevel();
         Player.Instance.IsEnabled = true;
         Player.Instance.ActionList = actionList;
