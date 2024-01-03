@@ -163,6 +163,8 @@ public class LevelManager : MonoBehaviour
             teleportSwitch.CloseTeleport();
         }
 
+        CollectedGems = 0;
+        DefeatedMonsters = 0;
     }
 
     public void Pause()
