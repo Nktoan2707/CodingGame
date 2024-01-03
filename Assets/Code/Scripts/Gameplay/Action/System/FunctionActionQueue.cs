@@ -7,6 +7,7 @@ public class FunctionActionQueue : MonoBehaviour
     public static FunctionActionQueue Instance { get; private set; }
     [SerializeField] GameObject actionSlot;
 
+    [SerializeField] GameObject functionText;
     private void Start()
     {
         if (Instance == null)
@@ -35,10 +36,12 @@ public class FunctionActionQueue : MonoBehaviour
         if (haveFunction)
         {
             actionFunctionView.SetActive(true);
+            functionText.SetActive(true);
         }
         else
         {
             actionFunctionView.SetActive(false);
+            functionText.SetActive(false);
         }
     }
     public List<ActionModel> getActionFunctionList()
