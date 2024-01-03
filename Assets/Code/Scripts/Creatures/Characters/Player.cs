@@ -277,6 +277,10 @@ public class Player : Creature, IIDamageable
         }
     }
 
+    private new void Die() { 
+        IsEnabled = false;
+    }
+
     public void Attack()
     {
         Vector3 offset = new Vector3(0.5f, 0.5f, 0);
@@ -294,7 +298,5 @@ public class Player : Creature, IIDamageable
             CombatManager.Instance.HandleCombatTurn(this, attackedCreature);
         }
     }
-
-  
 }
 
