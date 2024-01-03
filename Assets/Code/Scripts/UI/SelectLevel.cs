@@ -23,8 +23,18 @@ public class SelectLevel : MonoBehaviour
         SceneManager.LoadSceneAsync("Scene_Gameplay_Action");
     }
 
-    public void UnloadSelectLevel()
+    public void UnloadBasicSelectLevel()
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    public void UnloadFunctionSelectLevel()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 2);
+    }
+
+    public void UnloadLoopSelectLevel()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 3);
     }
 }
