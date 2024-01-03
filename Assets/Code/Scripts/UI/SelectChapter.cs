@@ -17,9 +17,15 @@ public class SelectChapter : MonoBehaviour
         
     }
 
-    public void LoadChapter(GameLevelSO gameLevelSO)
+    public void LoadSelectLevel()
     {
-        ActionSceneManager.currentGameLevelSO = gameLevelSO;
-        SceneManager.LoadSceneAsync("Action_Screen");
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    
+
+    public void UnloadSelectChapter()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }

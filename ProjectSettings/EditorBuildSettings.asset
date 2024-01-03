@@ -12,7 +12,11 @@ EditorBuildSettings:
     path: Assets/_Scenes/Scene_Main_Menu.unity
     guid: 66a18fbcd4553334993003ebe846862e
   - enabled: 1
+<<<<<<< Updated upstream
     path: Assets/_Scenes/Basic/Scene_Basic_Select_Chapter.unity
+=======
+    path: Assets/_Scenes/Basic/Scene_Select_Level.unity
+>>>>>>> Stashed changes
     guid: 5a6afa92f34918f4fa0cd4a4b1027602
   - enabled: 1
     path: Assets/_Scenes/Action_Screen.unity
