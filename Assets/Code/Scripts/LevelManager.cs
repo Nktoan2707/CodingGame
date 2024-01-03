@@ -78,9 +78,7 @@ public class LevelManager : MonoBehaviour
         Player.Instance.transform.position = gameLevelSO.initialPlayerPosition;
         Player.Instance.MovingDestination = gameLevelSO.initialPlayerPosition;
         Player.Instance.MovingDirection = gameLevelSO.initialPlayerMovingDirection;
-
-
-
+        
         foreach (Vector3 gemPosition in gameLevelSO.gemPositionList)
         {
             GameObject gemObject = Instantiate(gemSO.prefab);
@@ -88,10 +86,6 @@ public class LevelManager : MonoBehaviour
 
             spawnedObjectList.Add(gemObject);
         }
-
-
-
-
     }
 
     private void CleanUp()

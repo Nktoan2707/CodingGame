@@ -35,5 +35,10 @@ public class ButtonHandler : MonoBehaviour {
 
     }
 
+    public void OnOpenTutorial() 
+    {
+
+    }
+
 
 }
