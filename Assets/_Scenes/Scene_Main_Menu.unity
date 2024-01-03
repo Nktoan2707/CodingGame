@@ -708,6 +708,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4574154591226927210, guid: 0ce1eb67435306c458f5bc4c7d9304e1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLoopSelectLevel
+      objectReference: {fileID: 0}
     - target: {fileID: 7500403460391968799, guid: 0ce1eb67435306c458f5bc4c7d9304e1,
         type: 3}
       propertyPath: m_Name
@@ -1456,6 +1461,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574154591226927210, guid: 0ce1eb67435306c458f5bc4c7d9304e1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadFunctionSelectLevel
       objectReference: {fileID: 0}
     - target: {fileID: 7500403460391968799, guid: 0ce1eb67435306c458f5bc4c7d9304e1,
         type: 3}
@@ -2482,6 +2492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574154591226927210, guid: 0ce1eb67435306c458f5bc4c7d9304e1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadBasicSelectLevel
       objectReference: {fileID: 0}
     - target: {fileID: 7500403460391968799, guid: 0ce1eb67435306c458f5bc4c7d9304e1,
         type: 3}
