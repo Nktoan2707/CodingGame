@@ -10,7 +10,6 @@ public class ActionSceneManager : MonoBehaviour
     public static List<ActionModel> initActionList = new List<ActionModel>();
     public static GameLevelSO currentGameLevelSO;
 
-
     [SerializeField] GameObject actionList;
     [SerializeField] GameObject actionQueue;
     [SerializeField] GameObject actionFunction;

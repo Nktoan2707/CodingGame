@@ -15,4 +15,5 @@ public class GameLevelSO : ScriptableObject
     public List<Vector3> gemPositionList;
     public List<Vector3> monsterPositionList;
     public List<ActionName> actionNameList;
+    public string tutorialSceneName;
 }

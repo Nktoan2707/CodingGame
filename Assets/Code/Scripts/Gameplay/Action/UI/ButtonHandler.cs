@@ -35,10 +35,33 @@ public class ButtonHandler : MonoBehaviour {
 
     }
 
-    public void OnOpenBasicTutorial1() 
+    public void OnOpenTutorial() 
     {
-        SceneManager.LoadSceneAsync("Scene_Basic_Tutorial_1", LoadSceneMode.Additive);
+        if (ActionSceneManager.currentGameLevelSO.tutorialSceneName == null) {
+            return;
+        }
+        SceneManager.LoadSceneAsync(ActionSceneManager.currentGameLevelSO.tutorialSceneName, LoadSceneMode.Additive);
     }
 
+    public void OnBackButton() {
+        switch(ActionSceneManager.currentGameLevelSO.category.ToUpper()) {
+            case "BASIC": {
+                SceneManager.LoadSceneAsync("Scene_Basic_Select_Level");
+                break;
+            }
+            case "FUNCTION": {
+                SceneManager.LoadSceneAsync("Scene_Function_Select_Level");
+                break;
+            }
+            case "LOOP": {
+                SceneManager.LoadSceneAsync("Scene_Loop_Select_Level");
+                break;
+            }
+            default: {
+                SceneManager.LoadSceneAsync("Scene_Main_Menu");
+                break;
+            }
+        }
+    }
 
 }
