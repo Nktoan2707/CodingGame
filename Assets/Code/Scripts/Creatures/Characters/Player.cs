@@ -277,7 +277,7 @@ public class Player : Creature, IIDamageable
         }
     }
 
-    private new void Die() { 
+    protected override void Die() { 
         IsEnabled = false;
     }
 
