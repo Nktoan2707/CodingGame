@@ -20,7 +20,7 @@ public class SelectLevel : MonoBehaviour
     public void LoadLevel(GameLevelSO gameLevelSO)
     {
         ActionSceneManager.currentGameLevelSO = gameLevelSO;
-        SceneManager.LoadSceneAsync("Action_Screen");
+        SceneManager.LoadSceneAsync("Scene_Gameplay_Action");
     }
 
     public void UnloadSelectLevel()
