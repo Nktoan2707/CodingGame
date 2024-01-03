@@ -22,3 +22,4 @@ MonoBehaviour:
   - {x: 0, y: 5, z: 0}
   monsterPositionList: []
   actionNameList: 050000000200000003000000
+  tutorialSceneName: Scene_Loop_Tutorial_1
