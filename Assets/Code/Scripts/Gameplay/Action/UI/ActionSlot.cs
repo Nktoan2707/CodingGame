@@ -8,7 +8,6 @@ public class ActionSlot : MonoBehaviour, IDropHandler {
     private bool validate(GameObject dragItem) {   
         return !((dragItem.name.ToUpper() == "ACTIONFUNCTION(CLONE)") && (transform.parent.gameObject.name.ToUpper() == "ACTIONFUNCTIONLIST") || (transform.childCount != 0));
     }
-
     public void OnDrop(PointerEventData eventData) {
         if (eventData == null) return;
         GameObject dropped = eventData.pointerDrag;
@@ -17,11 +16,11 @@ public class ActionSlot : MonoBehaviour, IDropHandler {
         RectTransform rectTransform = dropped.GetComponent< RectTransform >();
 
         // Remove action from for loop
-        if (draggableItem.parentAfterDrag.name.ToUpper() == "ACTIONHOLDER(CLONE)" && transform.name.ToUpper() == "ACTIONSLOT(CLONE)") {
-
-            // Resize previous action slot 
+        if (draggableItem.parentAfterDrag.name.ToUpper() == "ACTIONHOLDER(CLONE)") {
             GameObject oldActionSlot = draggableItem.parentAfterDrag.parent.parent.gameObject;
             RectTransform oldActionSlotRT = oldActionSlot.GetComponent<RectTransform>();
+
+            // Resize previous action slot 
             if (oldActionSlot.transform.GetChild(0).childCount > 3) {
                 oldActionSlotRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 100 * (oldActionSlot.transform.GetChild(0).childCount - 2));
             }
@@ -39,6 +38,9 @@ public class ActionSlot : MonoBehaviour, IDropHandler {
         if (transform.childCount != 0) {
             GameObject children = transform.GetChild(0).gameObject;
             if (children.name.ToUpper() == "ACTIONFOR(CLONE)") {
+                GameObject oldActionSlot = draggableItem.parentAfterDrag.gameObject;
+                RectTransform oldActionSlotRT = oldActionSlot.GetComponent<RectTransform>();
+
                 rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 70);
                 rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 70);
 
@@ -51,11 +53,23 @@ public class ActionSlot : MonoBehaviour, IDropHandler {
                 // Resize action slot to expand fit with children inside
                 RectTransform actionSlotRectTransform = gameObject.GetComponent< RectTransform >();
 
-                if (children.transform.childCount > 2) {
-                    actionSlotRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 100 * (children.transform.childCount - 1));
+                // From normal action slot to action holder in for loop
+                if (oldActionSlot.name.ToUpper() == "ACTIONSLOT(CLONE)") {
+                    if (children.transform.childCount > 2) {
+                        actionSlotRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 100 * (children.transform.childCount - 1));
+                    }
+                    else {
+                        actionSlotRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 100);
+                    }
                 }
-                else {
-                    actionSlotRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 100);
+                // From action holder to action holder in for loop
+                else if (oldActionSlot.name.ToUpper() == "ACTIONHOLDER(CLONE)") {
+                    if (children.transform.childCount > 3) {
+                        actionSlotRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 100 * (children.transform.childCount - 2));
+                    }
+                    else {
+                        actionSlotRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 100);
+                    }
                 }
 
                 return;
