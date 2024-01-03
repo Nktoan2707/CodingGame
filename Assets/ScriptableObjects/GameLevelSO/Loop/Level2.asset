@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 687f9ddf45b1c094d840a61515049700, type: 3}
-  m_Name: Level1
+  m_Name: Level2
   m_EditorClassIdentifier: 
-  sceneName: Scene_Loop_Level_1
+  sceneName: Scene_Loop_Level_2
   category: Loop
-  level: 1
-  winConditionList: 00000000
+  level: 2
+  winConditionList: 01000000
   initialPlayerPosition: {x: 0, y: 0, z: 0}
   initialPlayerMovingDirection: {x: 0, y: 1}
-  gemPositionList:
-  - {x: 0, y: 5, z: 0}
-  monsterPositionList: []
-  actionNameList: 050000000200000003000000
+  gemPositionList: []
+  monsterPositionList:
+  - {x: 0, y: 4, z: 0}
+  - {x: 4, y: 4, z: 0}
+  - {x: 4, y: 0, z: 0}
+  actionNameList: 05000000020000000200000002000000020000000100000007000000
