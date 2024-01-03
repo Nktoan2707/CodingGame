@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameLevelSO gameLevelSO;
     [SerializeField] private GameLevelSO nextGameLevelSO;
     [SerializeField] private CollectibleObjectSO gemSO;
+    [SerializeField] private CreatureSO monsterSO;
     [SerializeField] private List<Teleport> teleportList;
     [SerializeField] private List<TeleportSwitch> teleportSwitchList;
 
@@ -90,9 +91,13 @@ public class LevelManager : MonoBehaviour
             spawnedObjectList.Add(gemObject);
         }
 
+        foreach(Vector3 monsterPosition in gameLevelSO.monsterPositionList)
+        {
+            GameObject monsterObject = Instantiate(monsterSO.prefab);
+            monsterObject.transform.position = monsterPosition;
 
-
-
+            spawnedObjectList.Add(monsterObject);
+        }
     }
 
     private void CleanUp()
