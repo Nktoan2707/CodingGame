@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Creature : MonoBehaviour
+public abstract class Creature : MonoBehaviour
 {
     [SerializeField] CreatureSO creatureSO;
     public CreatureSO CreatureSO
@@ -29,7 +29,7 @@ public class Creature : MonoBehaviour
         return CurrentHP > 0;
     }
 
-    protected void Die()
+    protected virtual void Die()
     {
         Destroy(gameObject);
     }

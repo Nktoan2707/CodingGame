@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687f9ddf45b1c094d840a61515049700, type: 3}
   m_Name: Level4
   m_EditorClassIdentifier: 
-  sceneName: Scene_Basic_Level_4
-  category: Basic
+  sceneName: Scene_Loop_Level_4
+  category: Loop
   level: 4
-  winConditionList: 00000000
+  winConditionList: 0000000001000000
   initialPlayerPosition: {x: 0, y: 0, z: 0}
-  initialPlayerMovingDirection: {x: 0, y: -1}
+  initialPlayerMovingDirection: {x: -1, y: 0}
   gemPositionList:
-  - {x: 6, y: 0, z: 0}
-  monsterPositionList: []
-  actionNameList: 0200000002000000020000000200000002000000020000000200000002000000010000000100000001000000010000000300000006000000
+  - {x: -2, y: 0, z: 0}
+  - {x: -4, y: 0, z: 0}
+  - {x: -6, y: 0, z: 0}
+  monsterPositionList:
+  - {x: -1, y: 3, z: 0}
+  - {x: -3, y: 3, z: 0}
+  - {x: -5, y: 3, z: 0}
+  actionNameList: 050000000200000002000000020000000200000002000000020000000200000002000000010000000100000001000000010000000700000003000000

@@ -7,6 +7,20 @@ public class TeleportSwitch : MonoBehaviour, IInteractable
     [SerializeField] private List<Teleport> teleportList;
 
 
+    private void Start()
+    {
+        
+    }
+
+    public void CloseTeleport()
+    {
+        foreach (Teleport teleport in teleportList)
+        {
+            teleport.IsEnabled = false;
+        }
+    }
+
+
     public void Interact()
     {
         foreach (Teleport teleport in teleportList)
