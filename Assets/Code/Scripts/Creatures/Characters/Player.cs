@@ -11,6 +11,9 @@ public class Player : Creature, IIDamageable
 {
     public static Player Instance { get; private set; }
 
+    public event EventHandler OnHit;
+    public event EventHandler OnAttack;
+
     public bool IsEnabled { get; set; }
 
     public event EventHandler<OnInteractionEventArgs> OnInteraction;
@@ -270,6 +273,7 @@ public class Player : Creature, IIDamageable
 
     public void TakeDamage(float damage)
     {
+        //OnHit?.Invoke(this, EventArgs.Empty);
         CurrentHP = Mathf.Clamp(CurrentHP - damage, 0, CreatureSO.maxHP);
         if (CurrentHP <= 0)
         {
@@ -283,6 +287,8 @@ public class Player : Creature, IIDamageable
 
     public void Attack()
     {
+        OnAttack?.Invoke(this, EventArgs.Empty);
+
         Vector3 offset = new Vector3(0.5f, 0.5f, 0);
         Vector3 attackPosition = transform.position + new Vector3(MovingDirection.x, MovingDirection.y);
         float attackCircleRadius = 0.1f;
