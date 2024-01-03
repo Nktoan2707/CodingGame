@@ -23,12 +23,6 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetBool("IsMoving", player.IsMoving);
 
-
-        if (player.IsRotating)
-        {
-            return;
-        }
-
         Vector2 movingDirection = player.GetMovingDirection();
         if (movingDirection.y == -1)
         {

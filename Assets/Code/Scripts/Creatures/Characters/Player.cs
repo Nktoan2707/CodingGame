@@ -19,8 +19,7 @@ public class Player : Creature, IIDamageable
         public IInteractable interactedObject;
     }
 
-    public float Speed { get; private set; }
-    public float RotatingSpeed { get; private set; }
+    public float MovingSpeed { get; private set; }
     public float SpeedMultiplier { get; set; }
 
     private const float MOVING_UNIT = 1f;
@@ -32,9 +31,9 @@ public class Player : Creature, IIDamageable
     public Vector3 MovingDestination { get; set; }
     private float movingDistance;
     public bool IsMoving { get; set; }
-    private float rotatingTimer;
-    private float rotatingTimerMax;
-    public bool IsRotating { get; set; }
+    private float actionExecutingTimer;
+    private float actionExecutingTimerMax;
+    public bool IsActionExecuting { get; set; }
 
     private List<IInteractable> interactableObjectList;
     public List<ActionModel> ActionList { get; set; }
@@ -45,13 +44,12 @@ public class Player : Creature, IIDamageable
 
         Instance = this;
         IsEnabled = true;
-        Speed = 1f;
-        RotatingSpeed = 3f;
-        rotatingTimerMax = 0.5f;
-        rotatingTimer = rotatingTimerMax;
+        MovingSpeed = 1f;
+        actionExecutingTimerMax = 1f;
+        actionExecutingTimer = actionExecutingTimerMax;
         SpeedMultiplier = 1f;
         IsMoving = false;
-        IsRotating = false;
+        IsActionExecuting = false;
         interactableObjectList = new List<IInteractable>();
         ActionList = new List<ActionModel>();
     }
@@ -67,13 +65,13 @@ public class Player : Creature, IIDamageable
         if (!IsEnabled)
         {
             IsMoving = false;
-            IsRotating = false;
+            IsActionExecuting = false;
             return;
         }
 
 
 
-        movingDistance = Speed * SpeedMultiplier * Time.deltaTime;
+        movingDistance = MovingSpeed * SpeedMultiplier * Time.deltaTime;
         IsMoving = !Mathf.Approximately(Vector3.Distance(transform.position, MovingDestination), 0);
 
 
@@ -81,9 +79,9 @@ public class Player : Creature, IIDamageable
         {
             HandleMovement();
         }
-        else if (IsRotating)
+        else if (IsActionExecuting)
         {
-            HandleRotation();
+            HandleActionExecution();
         }
         else
         {
@@ -97,13 +95,13 @@ public class Player : Creature, IIDamageable
         return;
     }
 
-    private void HandleRotation()
+    private void HandleActionExecution()
     {
-        rotatingTimer -= Time.deltaTime * SpeedMultiplier;
-        if (rotatingTimer <= 0)
+        actionExecutingTimer -= Time.deltaTime * SpeedMultiplier;
+        if (actionExecutingTimer <= 0)
         {
-            rotatingTimer = rotatingTimerMax;
-            IsRotating = false;
+            actionExecutingTimer = actionExecutingTimerMax;
+            IsActionExecuting = false;
         }
         return;
     }
@@ -128,13 +126,12 @@ public class Player : Creature, IIDamageable
         if (Input.GetKeyDown(KeyCode.A))
         {
             MovingDirection = Rotate(MovingDirection, ROTATE_LEFT_DEGREE);
-            IsRotating = true;
+
 
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             MovingDirection = Rotate(MovingDirection, ROTATE_RIGHT_DEGREE);
-            IsRotating = true;
 
         }
 
@@ -168,11 +165,11 @@ public class Player : Creature, IIDamageable
         {
             case ActionName.TurnLeft:
                 MovingDirection = Rotate(MovingDirection, ROTATE_LEFT_DEGREE);
-                IsRotating = true;
+                IsActionExecuting = true;
                 break;
             case ActionName.TurnRight:
                 MovingDirection = Rotate(MovingDirection, ROTATE_RIGHT_DEGREE);
-                IsRotating = true;
+                IsActionExecuting = true;
                 break;
             case ActionName.MoveForward:
                 MovingDirection.Normalize();
@@ -180,12 +177,18 @@ public class Player : Creature, IIDamageable
                 break;
             case ActionName.PickUp:
                 Interact(ActionName.PickUp);
+                IsActionExecuting = true;
+
                 break;
             case ActionName.Attack:
                 Attack();
+                IsActionExecuting = true;
+
                 break;
             case ActionName.ToggleSwitch:
                 Interact(ActionName.ToggleSwitch);
+                IsActionExecuting = true;
+
                 break;
         }
         ActionList.RemoveAt(0);

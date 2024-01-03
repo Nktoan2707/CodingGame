@@ -79,7 +79,7 @@ public class LevelManager : MonoBehaviour
 
         Player.Instance.transform.position = gameLevelSO.initialPlayerPosition;
         Player.Instance.MovingDestination = gameLevelSO.initialPlayerPosition;
-        Player.Instance.MovingDirection = gameLevelSO.initialPlayerMovingDirection;
+        Player.Instance.MovingDirection = gameLevelSO.initialPlayerMovingDirection == Vector2.zero ? new Vector2(0, -1) : gameLevelSO.initialPlayerMovingDirection;
 
 
 
@@ -91,7 +91,7 @@ public class LevelManager : MonoBehaviour
             spawnedObjectList.Add(gemObject);
         }
 
-        foreach(Vector3 monsterPosition in gameLevelSO.monsterPositionList)
+        foreach (Vector3 monsterPosition in gameLevelSO.monsterPositionList)
         {
             GameObject monsterObject = Instantiate(monsterSO.prefab);
             monsterObject.transform.position = monsterPosition;
@@ -108,12 +108,12 @@ public class LevelManager : MonoBehaviour
         }
         spawnedObjectList.Clear();
 
-        foreach(Teleport teleport in teleportList)
+        foreach (Teleport teleport in teleportList)
         {
             teleport.IsEnabled = true;
         }
 
-        foreach(TeleportSwitch teleportSwitch in teleportSwitchList)
+        foreach (TeleportSwitch teleportSwitch in teleportSwitchList)
         {
             teleportSwitch.CloseTeleport();
         }
