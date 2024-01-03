@@ -15,7 +15,8 @@ public class ActionSceneManager : MonoBehaviour
     [SerializeField] GameObject actionQueue;
     [SerializeField] GameObject actionFunction;
 
-    private void Awake() {
+    private void Awake()
+    {
         if (currentGameLevelSO == null)
         {
             Debug.LogError("Missing GameLevelSO!");
@@ -23,12 +24,14 @@ public class ActionSceneManager : MonoBehaviour
     }
 
 
-    private void Start() {
+    private void Start()
+    {
         LoadLevelActions();
         PlayScene(currentGameLevelSO.sceneName);
     }
 
-    private void LoadLevelActions() {
+    private void LoadLevelActions()
+    {
         initActionList.Clear();
         foreach (ActionName actionName in currentGameLevelSO.actionNameList)
         {
@@ -39,11 +42,13 @@ public class ActionSceneManager : MonoBehaviour
         actionFunction.GetComponent<FunctionActionQueue>().initFunctionAction();
     }
 
-    public static void PlayScene(string sceneName) {
+    public static void PlayScene(string sceneName)
+    {
         SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
     }
 
-    public static void UnloadScene(string sceneName) {
+    public static void UnloadScene(string sceneName)
+    {
         SceneManager.UnloadSceneAsync(sceneName);
     }
 }
