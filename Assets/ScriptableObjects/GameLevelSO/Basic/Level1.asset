@@ -15,9 +15,10 @@ MonoBehaviour:
   sceneName: Scene_Basic_Level_1
   category: Basic
   level: 1
-  numberOfGems: 1
-  gemPositionList:
-  - {x: 3, y: 0, z: 0}
+  winConditionList: 00000000
   initialPlayerPosition: {x: 0, y: 0, z: 0}
   initialPlayerMovingDirection: {x: 1, y: 0}
+  gemPositionList:
+  - {x: 3, y: 0, z: 0}
+  monsterPositionList: []
   actionNameList: 02000000020000000200000003000000

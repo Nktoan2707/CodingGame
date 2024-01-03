@@ -19,4 +19,10 @@ public class Slime : Creature, IIDamageable
             Die();
         }
     }
+
+    protected override void Die()
+    {
+        base.Die();
+        LevelManager.Instance.DefeatedMonsters += 1;
+    }
 }

@@ -15,6 +15,7 @@ MonoBehaviour:
   sceneName: Scene_Basic_Level_5
   category: Basic
   level: 5
+  winConditionList: 0000000001000000
   initialPlayerPosition: {x: 0, y: 0, z: 0}
   initialPlayerMovingDirection: {x: 1, y: 0}
   gemPositionList:

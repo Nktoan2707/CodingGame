@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum WinCondition { AllGemsCollected, AllMonstersDefeated }
 public class LevelManager : MonoBehaviour
 {
+
     public static LevelManager Instance { get; private set; }
 
     [SerializeField] private GameLevelSO gameLevelSO;
@@ -34,31 +36,63 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    private int _defeatedMonsters;
+    public int DefeatedMonsters
+    {
+        get
+        {
+            return _defeatedMonsters;
+        }
+        set
+        {
+            this._defeatedMonsters = value;
+            HandleWinConditions();
+        }
+    }
+
     private void HandleWinConditions()
     {
-        if (CollectedGems == gameLevelSO.gemPositionList.Count)
+        foreach (WinCondition winCondition in gameLevelSO.winConditionList)
         {
-            if (nextGameLevelSO != null)
+            switch (winCondition)
             {
-                ActionSceneManager.currentGameLevelSO = nextGameLevelSO;
-                SceneManager.LoadScene("Scene_Gameplay_Action");
-            }
-            else
-            {
-                switch (gameLevelSO.category.ToUpper())
-                {
-                    case "BASIC":
-                        SceneManager.LoadScene("Scene_Basic_Select_Chapter");
-                        break;
-                    case "LOOP":
-                        SceneManager.LoadScene("Scene_LOOP_Select_Chapter");
-                        break;
-                    case "FUNCTION":
-                        SceneManager.LoadScene("Scene_Function_Select_Chapter");
-                        break;
-                }
+                case WinCondition.AllGemsCollected:
+                    if (CollectedGems != gameLevelSO.gemPositionList.Count)
+                    {
+                        return;
+                    }
+                    break;
+                case WinCondition.AllMonstersDefeated:
+                    if (DefeatedMonsters != gameLevelSO.monsterPositionList.Count)
+                    {
+                        return;
+                    }
+                    break;
             }
 
+        }
+
+
+        // All win conditions are satisfied
+        if (nextGameLevelSO != null)
+        {
+            ActionSceneManager.currentGameLevelSO = nextGameLevelSO;
+            SceneManager.LoadScene("Scene_Gameplay_Action");
+        }
+        else
+        {
+            switch (gameLevelSO.category.ToUpper())
+            {
+                case "BASIC":
+                    SceneManager.LoadScene("Scene_Basic_Select_Chapter");
+                    break;
+                case "LOOP":
+                    SceneManager.LoadScene("Scene_LOOP_Select_Chapter");
+                    break;
+                case "FUNCTION":
+                    SceneManager.LoadScene("Scene_Function_Select_Chapter");
+                    break;
+            }
         }
     }
 
