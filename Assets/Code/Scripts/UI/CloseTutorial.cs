@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Tutorial_1 : MonoBehaviour
+public class CloseTutorial : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,7 @@ public class Tutorial_1 : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            SceneManager.UnloadSceneAsync("Scene_Basic_Tutorial_1");
+            SceneManager.UnloadSceneAsync(ActionSceneManager.currentGameLevelSO.tutorialSceneName);
         }
     }
 }
