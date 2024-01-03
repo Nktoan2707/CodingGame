@@ -19,16 +19,16 @@ public class SelectChapter : MonoBehaviour
 
     public void LoadBasicSelectLevel()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadSceneAsync("Scene_Basic_Select_Level");
     }
 
     public void LoadFunctionSelectLevel()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadSceneAsync("Scene_Function_Select_Level");
     }
 
     public void LoadLoopSelectLevel()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 3);
+        SceneManager.LoadSceneAsync("Scene_Loop_Select_Level");
     }
 }

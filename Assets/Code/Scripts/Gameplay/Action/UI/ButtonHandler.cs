@@ -31,13 +31,13 @@ public class ButtonHandler : MonoBehaviour {
 
     public void OnStopClick()
     {
-        SceneManager.LoadScene("Action_Screen");
+        SceneManager.LoadScene("Scene_Gameplay_Action");
 
     }
 
-    public void OnOpenTutorial() 
+    public void OnOpenBasicTutorial1() 
     {
-
+        SceneManager.LoadSceneAsync("Scene_Basic_Tutorial_1", LoadSceneMode.Additive);
     }
 
 
