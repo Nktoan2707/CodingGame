@@ -45,7 +45,18 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("Scene_Basic_Select_Chapter");
+                switch (gameLevelSO.category.ToUpper())
+                {
+                    case "BASIC":
+                        SceneManager.LoadScene("Scene_Basic_Select_Chapter");
+                        break;
+                    case "LOOP":
+                        SceneManager.LoadScene("Scene_LOOP_Select_Chapter");
+                        break;
+                    case "FUNCTION":
+                        SceneManager.LoadScene("Scene_Function_Select_Chapter");
+                        break;
+                }
             }
 
         }
