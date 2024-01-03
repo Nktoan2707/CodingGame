@@ -9812,7 +9812,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8826200981415208914, guid: 296a83fbd736b6a43a0bfb814f86575d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -46775552, guid: ea8eb57a7edd98745ab333b1bf09d5ec,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 5437994256799751774, guid: 296a83fbd736b6a43a0bfb814f86575d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -9913,7 +9920,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8826200981415208914, guid: 296a83fbd736b6a43a0bfb814f86575d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -46775552, guid: ea8eb57a7edd98745ab333b1bf09d5ec,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 5437994256799751774, guid: 296a83fbd736b6a43a0bfb814f86575d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

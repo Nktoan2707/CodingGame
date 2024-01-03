@@ -17,6 +17,10 @@ public class TeleportVisual : MonoBehaviour
 
     private void Update()
     {
-        animator.SetBool(IS_ENABLED, teleport.IsEnabled);
+        if (animator != null)
+        {
+            animator.SetBool(IS_ENABLED, teleport.IsEnabled);
+
+        }
     }
 }
