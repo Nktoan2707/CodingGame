@@ -29,6 +29,7 @@ public class ActionSceneManager : MonoBehaviour
         LoadLevelActions();
         PlayScene(currentGameLevelSO.sceneName);
     }
+
     private void LoadLevelActions()
     {
         initActionList.Clear();
@@ -40,10 +41,12 @@ public class ActionSceneManager : MonoBehaviour
         actionQueue.GetComponent<ActionQueueManager>().updateActionQueue();
         actionFunction.GetComponent<FunctionActionQueue>().initFunctionAction();
     }
+
     public static void PlayScene(string sceneName)
     {
         SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
     }
+
     public static void UnloadScene(string sceneName)
     {
         SceneManager.UnloadSceneAsync(sceneName);

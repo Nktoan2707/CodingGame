@@ -19,7 +19,7 @@ namespace TS.PageSlider
 
         #endregion
 
-        private void Awake()
+        private void Start()
         {
             ChangeActiveState(false);
         }

@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using TS.PageSlider;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ButtonHandle : MonoBehaviour
+public class GetStarted : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -20,10 +19,11 @@ public class ButtonHandle : MonoBehaviour
 
     public void LoadMenu()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadSceneAsync("Scene_MainMenu", LoadSceneMode.Additive);
     }
 
     
+
     public void UnloadIntro()
     {
         SceneManager.UnloadSceneAsync("Scene_Intro");

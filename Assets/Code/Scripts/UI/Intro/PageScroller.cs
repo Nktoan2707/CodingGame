@@ -134,7 +134,7 @@ namespace TS.PageSlider
             ScrollToPage(page);
         }
 
-        public void ScrollToPage(int page)
+        private void ScrollToPage(int page)
         {
             _targetNormalizedPosition = page * (1f / GetPageCount());
             _moveSpeed = (_targetNormalizedPosition - _scrollRect.horizontalNormalizedPosition) / _snapDuration;

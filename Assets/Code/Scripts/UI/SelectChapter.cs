@@ -17,18 +17,9 @@ public class SelectChapter : MonoBehaviour
         
     }
 
-    public void LoadBasicSelectLevel()
+    public void LoadChapter(GameLevelSO gameLevelSO)
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    public void LoadFunctionSelectLevel()
-    {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 2);
-    }
-
-    public void LoadLoopSelectLevel()
-    {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 3);
+        ActionSceneManager.currentGameLevelSO = gameLevelSO;
+        SceneManager.LoadSceneAsync("Scene_Gameplay_Action");
     }
 }

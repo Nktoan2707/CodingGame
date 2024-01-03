@@ -17,24 +17,17 @@ public class SelectLevel : MonoBehaviour
         
     }
 
-    public void LoadLevel(GameLevelSO gameLevelSO)
+    public void LoadLevel()
     {
-        ActionSceneManager.currentGameLevelSO = gameLevelSO;
-        SceneManager.LoadSceneAsync("Scene_Gameplay_Action");
+        SceneManager.UnloadSceneAsync("Scene_Main_Menu");
+        SceneManager.LoadSceneAsync("Scene_Basic_Select_Chapter", LoadSceneMode.Additive);
     }
 
-    public void UnloadBasicSelectLevel()
-    {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
-    }
+    
 
-    public void UnloadFunctionSelectLevel()
+    public void UnloadLevel()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 2);
-    }
-
-    public void UnloadLoopSelectLevel()
-    {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 3);
+        SceneManager.UnloadSceneAsync("Scene_Basic_Select_Chapter");
+        SceneManager.LoadSceneAsync("Scene_Main_Menu", LoadSceneMode.Additive);
     }
 }
