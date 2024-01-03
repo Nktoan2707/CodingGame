@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameLevelSO nextGameLevelSO;
     [SerializeField] private CollectibleObjectSO gemSO;
     [SerializeField] private List<Teleport> teleportList;
+    [SerializeField] private List<TeleportSwitch> teleportSwitchList;
 
     private const float MINIMAL_PLAYBACK_SPEED = 0.5f;
     private const float MAXIMAL_PLAYBACK_SPEED = 4f;
@@ -104,8 +105,14 @@ public class LevelManager : MonoBehaviour
 
         foreach(Teleport teleport in teleportList)
         {
-            teleport.IsEnabled = false;
+            teleport.IsEnabled = true;
         }
+
+        foreach(TeleportSwitch teleportSwitch in teleportSwitchList)
+        {
+            teleportSwitch.CloseTeleport();
+        }
+
     }
 
     public void Pause()

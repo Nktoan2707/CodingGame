@@ -11200,9 +11200,9 @@ MonoBehaviour:
   gameLevelSO: {fileID: 11400000, guid: c34630068c81a4f41a6212304ffe41fa, type: 2}
   nextGameLevelSO: {fileID: 11400000, guid: cf629a5cc52e09844b23a255e143c4e6, type: 2}
   gemSO: {fileID: 11400000, guid: 86e54031f7625c0489905b24a6570652, type: 2}
-  teleportList:
-  - {fileID: 5486508334215121891}
-  - {fileID: 1284322835}
+  teleportList: []
+  teleportSwitchList:
+  - {fileID: 1073936991842412592}
 --- !u!4 &2115879939
 Transform:
   m_ObjectHideFlags: 0
@@ -11296,6 +11296,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 932d05979ee33cd48a7787b2d7ffe758, type: 3}
+--- !u!114 &1073936991842412592 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2899016979889463894, guid: 932d05979ee33cd48a7787b2d7ffe758,
+    type: 3}
+  m_PrefabInstance: {fileID: 1073936991842412591}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10d4e89a1a58e54d9c921a5f0c95d22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5486508334215121890
 PrefabInstance:
   m_ObjectHideFlags: 0
